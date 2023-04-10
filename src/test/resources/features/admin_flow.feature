@@ -3,7 +3,7 @@ Feature: Admin flow
   The actions that can be done by a user with the admin authorities
   
   @tag1
-  Scenario: CRUD operations on the course entity
+  Scenario Outline: CRUD operations on the course entity
     Given A user has the admin authorities
     When the user does <action>
     Then the course becomes <state>
