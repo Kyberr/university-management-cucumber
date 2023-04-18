@@ -1,4 +1,4 @@
-package ua.com.foxminded.university.pageobjects;
+package ua.com.foxminded.university.page;
 
 import java.time.Duration;
 
@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AdminPage {
     
+    public static final int NOT_AUTHORIZED_USER_ID = 6;
+    public static final int USER_ID = 5;
+    public static final String EMAIL = "person";
     public static final String ADMIN_PAGE_URL = "http://localhost:8080/users/list?";
     public static final String STAFF_AUTHORITY = "STAFF";
     public static final boolean ENABLED_STATUS = true;

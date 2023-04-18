@@ -3,5 +3,5 @@ Feature: Not authorized user flow
 
   Scenario: Navigation to the Login page
     Given a not authorized user has connection to the home page
-    When the user clicks on the SignIn button on the login page
+    When the user clicks the SignIn button on the home page
     Then the user sees the login page

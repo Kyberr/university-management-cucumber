@@ -1,4 +1,4 @@
-package ua.com.foxminded.university.pageobjects;
+package ua.com.foxminded.university.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
