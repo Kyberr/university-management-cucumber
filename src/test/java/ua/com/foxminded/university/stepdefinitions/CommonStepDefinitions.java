@@ -46,9 +46,19 @@ public class CommonStepDefinitions {
         this.coursesPage = PageFactory.initElements(driver, CoursesPage.class);
         this.coursePage = PageFactory.initElements(driver, CoursePage.class);
     }
+    
+    @When("the user clicks the created course name link")
+    public void the_user_clicks_the_created_course_name_link() {
+        coursesPage.findCouseLink(CoursePage.COURSE_NAME).click();
+    }
+    
+    @When("the user clicks the delete course button of existence course")
+    public void the_user_clicks_the_delete_course_button_of_existence_course() {
+        coursesPage.findCouseLink(CoursesPage.EXISTENCE_COURSE_NAME).click();
+    }
 
-    @Then("the user request to create a course is denied")
-    public void the_user_request_to_create_a_course_is_denied() {
+    @Then("the user request is denied")
+    public void the_user_request_is_denied() {
         assertEquals(ERROR_PAGE_TITLE, driver.getTitle());
     }
     
@@ -79,14 +89,13 @@ public class CommonStepDefinitions {
     
     @Then("the user clicks the create button")
     public void the_user_clicks_the_create_button() {
-        coursesPage = new CoursesPage(driver);
         coursesPage.findCreateButton().click();
     }
     
     @Then("the user enters a course name on the create course panel")
     public void the_user_enters_a_course_name_on_the_create_course_panel() {
         coursesPage.findCourseNameInputField()
-                   .sendKeys(CoursesPage.COURSE_NAME);
+                   .sendKeys(CoursePage.COURSE_NAME);
     }
     
     @Then("the user enters a course desctiption on the create course panel")
@@ -102,7 +111,7 @@ public class CommonStepDefinitions {
     
     @Then("the created course is present on the courses list page")
     public void the_created_course_is_present_on_the_courses_list_page() {
-        assertTrue(coursesPage.isCoursePresent(CoursesPage.COURSE_NAME));
+        assertTrue(coursesPage.isCoursePresent(CoursePage.COURSE_NAME));
     }
     
     @Given("a user sees the courses list page")
@@ -110,28 +119,37 @@ public class CommonStepDefinitions {
         driver.get(coursesPageUrl);
     }
     
-    @When("the user clicks the delete course button")
-    public void the_user_clicks_the_delete_course_button() {
+    @When("the user clicks the delete course button of created course")
+    public void the_user_clicks_the_delete_course_button_of_created_course() {
         coursesPage.findDeleteCourseButton(CoursePage.NEW_COURSE_NAME)
                    .click();
         coursesPage.findConfirmDeletingButton(CoursePage.NEW_COURSE_NAME)
                    .click();
     }
     
-    @Then("the course is not present on the courses list page")
-    public void the_course_is_not_present_on_the_courses_list_page() {
+    @When("the user clicks the delete course button of a existence course")
+    public void the_user_clicks_the_delete_course_button_of_a_existence_course() {
+        coursesPage.findDeleteCourseButton(CoursesPage.EXISTENCE_COURSE_NAME)
+                   .click();
+        coursesPage.findConfirmDeletingButton(CoursesPage.EXISTENCE_COURSE_NAME)
+                   .click();
+    }
+
+    
+    @Then("the created course is not present on the courses list page")
+    public void the_created_course_is_not_present_on_the_courses_list_page() {
         assertFalse(coursesPage.isCoursePresent(CoursePage.NEW_COURSE_NAME));
     }
     
-    @When("the user clicks a course name link")
-    public void the_user_clicks_a_course_name_link() {
-        coursesPage.findCouseLink(CoursesPage.COURSE_NAME)
+    @When("the user clicks an existence course name link")
+    public void the_user_clicks_an_existence_course_name_link() {
+        coursesPage.findCouseLink(CoursesPage.EXISTENCE_COURSE_NAME)
                    .click();
     }
     
     @Then("the user goes to a course page")
     public void the_user_goes_to_a_course_page() {
-        assertTrue(driver.getCurrentUrl().matches(coursePageUrlRegex));
+        assertEquals(CoursePage.COURSE_TITLE, driver.getTitle());
     }
     
     @Then("the user enters a new course name into the input field")

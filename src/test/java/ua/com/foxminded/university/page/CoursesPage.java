@@ -13,7 +13,7 @@ public class CoursesPage {
     
     public static final int COURSE_ID = 4;
     public static final String COURSE_DESCRIPTION = "some description";
-    public static final String COURSE_NAME = "Data structures";
+    public static final String EXISTENCE_COURSE_NAME = "Programming";
     
     @FindBy(id = "createButton")
     private WebElement createButton;

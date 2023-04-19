@@ -46,14 +46,14 @@ Feature: Admin flow
     * the user clicks the save changes button on the create course panel
     * the created course is present on the courses list page
   
-  Scenario: A user should be able to retrieve a course
+  Scenario: A user with admin authorities should be able to retrieve a course
     Given a user sees the courses list page
-    When the user clicks a course name link
+    When the user clicks an existence course name link
     Then the user goes to a course page  
   
   Scenario: A user should be able to update a course
     Given a user sees the courses list page
-    When the user clicks a course name link    
+    When the user clicks the created course name link    
     Then the user goes to a course page
     * the user enters a new course name into the input field
     * the user enters new course description into the input field
@@ -62,5 +62,5 @@ Feature: Admin flow
     
   Scenario: A user should be able to delete a course
     Given a user sees the courses list page
-    When the user clicks the delete course button
-    Then the course is not present on the courses list page
+    When the user clicks the delete course button of created course
+    Then the created course is not present on the courses list page
