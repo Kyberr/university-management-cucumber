@@ -1,9 +1,13 @@
 package ua.com.foxminded.university.page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class LoginPage {
     
     public static final String TEACHER_LOGIN = "teacher";
@@ -12,33 +16,29 @@ public class LoginPage {
     public static final String ADMIN_LOGIN = "a";
     public static final String PASSWORD = "a";
     
-    public static final String LOGIN_PAGE_URL = "http://localhost:8080/login";
+    @FindBy(xpath = "//input[@value='SignIn']")
+    private WebElement loginButtonLocator;
     
-    private WebDriver driver;
+    @FindBy(name = "password")
+    private WebElement passwordLocator;
     
-    private By usernameLocator = By.name("username");
-    private By passwordLocator = By.name("password");
-    private By loginButtonLocator = By.xpath("//input[@value='SignIn']");
+    @FindBy(name = "username")
+    private WebElement usernameLocator; 
     
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        
-        if (!driver.getCurrentUrl().equals(LOGIN_PAGE_URL)) {
-            throw new IllegalStateException("This is not the login page, " + 
-                    "current page is: " + driver.getCurrentUrl());
-        }
+        PageFactory.initElements(driver, this);
     }
     
     public String getUserName() {
-        return driver.findElement(usernameLocator).getAttribute("value");
+        return usernameLocator.getAttribute("value");
     }
     
     public WebElement findSignInButton() {
-        return driver.findElement(loginButtonLocator);
+        return loginButtonLocator;
     }
     
     public void enterCredentials(String username, String password) {
-        driver.findElement(usernameLocator).sendKeys(username);
-        driver.findElement(passwordLocator).sendKeys(password);
+        usernameLocator.sendKeys(username);
+        passwordLocator.sendKeys(password);
     }
 }

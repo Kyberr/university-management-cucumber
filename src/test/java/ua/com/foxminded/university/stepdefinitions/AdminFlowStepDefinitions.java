@@ -5,25 +5,41 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import ua.com.foxminded.university.WebDriverFactory;
 import ua.com.foxminded.university.page.AdminPage;
 import ua.com.foxminded.university.page.HomePage;
 import ua.com.foxminded.university.page.LoginPage;
 
 public class AdminFlowStepDefinitions {
+
+    @Value("${adminPageUrl}")
+    private String adminPageUrl;
+    
+    @Value("${loginPageUrl}")
+    private String loginPageUrl;
     
     private LoginPage loginPage;
     private HomePage homePage;
     private AdminPage adminPage;
-    private WebDriver driver = WebDriverFactory.getInstance().getDriver();
+
+    private WebDriver driver;
     
+    @Autowired
+    public AdminFlowStepDefinitions(WebDriver driver) {
+        this.driver = driver;
+        this.loginPage = PageFactory.initElements(driver, LoginPage.class);
+        this.homePage = PageFactory.initElements(driver, HomePage.class);
+        this.adminPage = PageFactory.initElements(driver, AdminPage.class);
+    }
+
     @Then("the user clicks the authorize button of a user with id")
     public void the_user_clicks_the_authorize_button_of_a_user_with_id() {
-        adminPage = new AdminPage(driver);
         adminPage.findAuthorizeButton(AdminPage.NOT_AUTHORIZED_USER_ID).click();
     }
     
@@ -59,23 +75,21 @@ public class AdminFlowStepDefinitions {
     
     @Given("the user sees the admin panel button on the home page")
     public void the_user_sees_the_admin_panel_button_on_the_home_page() {
-        homePage = new HomePage(driver);
         assertTrue(homePage.isAdminPanelPresent());;
     }
     
     @When("the user clicks the admin panel button on the home page")
     public void the_user_clicks_the_admin_panel_button_on_the_home_page() {
-        homePage.clickAdminPanelButton();
+        homePage.findAdminPanelButton().click();;
     }
     
     @Then("the user sees the admin panel page")
     public void the_user_sees_the_admin_panel_page() {
-        assertEquals(AdminPage.ADMIN_PAGE_URL, driver.getCurrentUrl());
+        assertEquals("http://localhost:8080/users/list?", driver.getCurrentUrl());
     }
     
     @Then("the user clicks the Edit button of a user that has an email")
     public void the_user_clicks_the_Edit_button_of_a_user_that_has_an_email() {
-        adminPage = new AdminPage(driver);
         WebElement editButton = adminPage.findEditButton(AdminPage.EMAIL, AdminPage.USER_ID);
         editButton.click();
     }
@@ -110,8 +124,7 @@ public class AdminFlowStepDefinitions {
     
     @Given("a user enters admin credentials on the login page")
     public void a_user_enters_admin_credentials_on_the_login_page() {
-        driver.get(LoginPage.LOGIN_PAGE_URL);
-        loginPage = new LoginPage(driver);
+        driver.get(loginPageUrl);
         loginPage.enterCredentials(LoginPage.ADMIN_LOGIN, LoginPage.PASSWORD);
     }
 }

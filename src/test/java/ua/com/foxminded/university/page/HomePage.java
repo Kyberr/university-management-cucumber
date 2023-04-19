@@ -3,48 +3,44 @@ package ua.com.foxminded.university.page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class HomePage {
     
-    public static final String HOME_PAGE_URL = "http://localhost:8080/";
+    public static final By ADMIN_PANEL_BUTTON = By.id("adminPanelButton");
+    public static final By COURSES_BUTTON = By.id("coursesButton");
     
-    private By adminPanelButton = By.id("adminPanelButton");
+    @FindBy(id = "signInButton")
+    private WebElement signInButton;
+    
     private WebDriver driver;
-    private By signInButton = By.id("signInButton");
-    private By coursesButton = By.id("coursesButton");
-    
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
-        
-        if (!driver.getCurrentUrl().equals(HOME_PAGE_URL)) {
-            throw new IllegalStateException("This is not the home page, " + 
-                    "current page is: " + driver.getCurrentUrl());
-        }
+        PageFactory.initElements(driver, this);
     }
-    
+
     public boolean isCoursesButtonPresent() {
-        return !driver.findElements(coursesButton).isEmpty();
+        return !driver.findElements(COURSES_BUTTON).isEmpty();
     }
     
     public WebElement findCoursesButton() {
-        return driver.findElement(coursesButton);
-    }
-    
-    public AdminPage clickAdminPanelButton() {
-        driver.findElement(adminPanelButton).click();
-        return new AdminPage(driver);
+        return driver.findElement(COURSES_BUTTON);
     }
     
     public boolean isAdminPanelPresent() {
-        return !driver.findElements(adminPanelButton).isEmpty();
+        return !driver.findElements(ADMIN_PANEL_BUTTON).isEmpty();
     }
     
     public WebElement findAdminPanelButton() {
-        return driver.findElement(adminPanelButton);
+        return driver.findElement(ADMIN_PANEL_BUTTON);
     }
     
-    public LoginPage clickLoginButton() {
-        driver.findElement(signInButton).click();;
-        return new LoginPage(driver);
+    public WebElement findSignInButton() {
+        return signInButton;
     }
 }

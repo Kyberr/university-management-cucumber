@@ -1,20 +1,29 @@
 package ua.com.foxminded.university.stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import io.cucumber.java.en.Given;
-import ua.com.foxminded.university.WebDriverFactory;
 import ua.com.foxminded.university.page.LoginPage;
 
 public class StudentFlowStepDefinitions {
     
-    private WebDriver driver = WebDriverFactory.getInstance().getDriver();
-    private LoginPage loginPage;
+    @Value("${loginPageUrl}")
+    private String loginPageUrl;
     
+    private LoginPage loginPage;
+
+    private WebDriver driver;
+    
+    public StudentFlowStepDefinitions(WebDriver driver) {
+        this.driver = driver;
+        this.loginPage = PageFactory.initElements(driver, LoginPage.class);
+    }
+
     @Given("a user entered student credentials on the login page")
     public void a_user_entered_student_credentials_on_the_login_page() {
-        driver.get(LoginPage.LOGIN_PAGE_URL);
-        loginPage = new LoginPage(driver);
+        driver.get(loginPageUrl);
         loginPage.enterCredentials(LoginPage.STUDENT_LOGIN, LoginPage.PASSWORD);
     }
 }

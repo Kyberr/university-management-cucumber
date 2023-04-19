@@ -2,21 +2,16 @@ package ua.com.foxminded.university.stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
 
-import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
-import ua.com.foxminded.university.WebDriverFactory;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class Hooks {
     
-    public static WebDriver driver = WebDriverFactory.getInstance().getDriver();
-    
+    public final WebDriver driver;
+
     @Before
     public void setUp() {
         driver.manage().deleteAllCookies();
-    }
-    
-    @AfterAll
-    public static void cleanUp() {
-        driver.close();
     }
 }

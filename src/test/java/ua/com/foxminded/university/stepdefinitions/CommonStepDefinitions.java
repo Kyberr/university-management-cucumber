@@ -5,11 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import ua.com.foxminded.university.WebDriverFactory;
 import ua.com.foxminded.university.page.CoursePage;
 import ua.com.foxminded.university.page.CoursesPage;
 import ua.com.foxminded.university.page.HomePage;
@@ -17,39 +18,63 @@ import ua.com.foxminded.university.page.LoginPage;
 
 public class CommonStepDefinitions {
     
-    private WebDriver driver = WebDriverFactory.getInstance().getDriver();
+    public static final String ERROR_PAGE_TITLE = "Error page";
+    
+    @Value("${coursePageUrlRegex}")
+    private String coursePageUrlRegex;
+    
+    @Value("${coursesPageUrl}")
+    private String coursesPageUrl;
+    
+    @Value("${homePageUrl}")
+    private String homePageUrl;
+    
+    @Value("${loginPageUrl}")
+    private String loginPageUrl;
+    
     private LoginPage loginPage;
     private HomePage homePage;
     private CoursesPage coursesPage;
     private CoursePage coursePage;
     
+    private WebDriver driver;
+
+    public CommonStepDefinitions(WebDriver driver) {
+        this.driver = driver;
+        this.loginPage = PageFactory.initElements(driver, LoginPage.class);
+        this.homePage = PageFactory.initElements(driver, HomePage.class);
+        this.coursesPage = PageFactory.initElements(driver, CoursesPage.class);
+        this.coursePage = PageFactory.initElements(driver, CoursePage.class);
+    }
+
+    @Then("the user request to create a course is denied")
+    public void the_user_request_to_create_a_course_is_denied() {
+        assertEquals(ERROR_PAGE_TITLE, driver.getTitle());
+    }
+    
     @When("the user clicks the SignIn button on the home page")
     public void the_user_clicks_the_SignIn_button_the_home_page() {
-        homePage = new HomePage(driver);
-        homePage.clickLoginButton();
+        homePage.findSignInButton().click();
     }
     
     @Then("the user sees the login page")
     public void the_user_sees_the_login_page() {
-        String loginPageUrl = driver.getCurrentUrl();
-        assertEquals(LoginPage.LOGIN_PAGE_URL, loginPageUrl);
+        assertEquals(loginPageUrl, driver.getCurrentUrl());
     }
     
     @Given("a user sees the courses button on the home page")
     public void a_user_sees_the_courses_button_on_the_home_page() {
-        homePage = new HomePage(driver);
         assertTrue(homePage.isCoursesButtonPresent());
     }
     
     @When("the user clicks the courses button")
     public void the_user_clicks_the_courses_button() {
-        homePage = new HomePage(driver);
         homePage.findCoursesButton().click();
     }
     
     @Then("the user goes to the courses list page")
     public void the_user_goes_to_the_courses_list_page() {
-        assertEquals(CoursesPage.COURSES_PAGE_URL, driver.getCurrentUrl());
+        assertEquals(coursesPageUrl, driver.getCurrentUrl());
     }
     
     @Then("the user clicks the create button")
@@ -82,8 +107,7 @@ public class CommonStepDefinitions {
     
     @Given("a user sees the courses list page")
     public void a_user_sees_the_courses_list_page() {
-        driver.get(CoursesPage.COURSES_PAGE_URL);
-        coursesPage = new CoursesPage(driver);
+        driver.get(coursesPageUrl);
     }
     
     @When("the user clicks the delete course button")
@@ -107,12 +131,11 @@ public class CommonStepDefinitions {
     
     @Then("the user goes to a course page")
     public void the_user_goes_to_a_course_page() {
-        assertTrue(driver.getCurrentUrl().matches(CoursePage.COURSE_PAGE_URL_REGEX));
+        assertTrue(driver.getCurrentUrl().matches(coursePageUrlRegex));
     }
     
     @Then("the user enters a new course name into the input field")
     public void the_user_enters_a_new_course_name_into_the_input_field() {
-        coursePage = new CoursePage(driver);
         coursePage.findCourseNameUpdateField()
                   .sendKeys(CoursePage.NEW_COURSE_NAME);
     }
@@ -137,12 +160,11 @@ public class CommonStepDefinitions {
     
     @When("the user clicks the SignIn button on the login page")
     public void the_user_clicks_the_SignIn_button_on_the_login_page() {
-        loginPage = new LoginPage(driver);
         loginPage.findSignInButton().click();
     }
     
     @Then("the user goes to the home page")
     public void the_user_goes_to_the_home_page() {
-        assertEquals(HomePage.HOME_PAGE_URL, driver.getCurrentUrl());
+        assertEquals(homePageUrl, driver.getCurrentUrl());
     }
 }
