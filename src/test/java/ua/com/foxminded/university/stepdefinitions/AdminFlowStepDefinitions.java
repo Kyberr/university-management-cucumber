@@ -85,7 +85,7 @@ public class AdminFlowStepDefinitions {
     
     @Then("the user sees the admin panel page")
     public void the_user_sees_the_admin_panel_page() {
-        assertEquals("http://localhost:8080/users/list?", driver.getCurrentUrl());
+        assertEquals(adminPageUrl, driver.getCurrentUrl());
     }
     
     @Then("the user clicks the Edit button of a user that has an email")
@@ -106,8 +106,7 @@ public class AdminFlowStepDefinitions {
     
     @Then("the user clicks the SaveChanges button")
     public void the_user_clicks_the_SaveChanges_button() {
-        WebElement saveChangesButton = adminPage.findSaveChangesButton(AdminPage.USER_ID);
-        saveChangesButton.click();
+        adminPage.findSaveChangesButton(AdminPage.USER_ID).click();;
     }
     
     @Then("the user sees the admin authority of user in the list")

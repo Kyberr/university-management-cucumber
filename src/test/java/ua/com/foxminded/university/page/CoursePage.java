@@ -36,7 +36,7 @@ public class CoursePage {
         boolean isCourseName = !driver.findElements(courseNameElement).isEmpty();
         boolean isCourseDescription = !driver.findElements(courseDescriptionElement)
                                              .isEmpty();
-        return isCourseName || isCourseDescription;
+        return isCourseName && isCourseDescription;
     }
     
     public WebElement findSaveUpdatedChangesButton() {
