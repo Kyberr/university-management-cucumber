@@ -9,8 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 public class CoursePage {
     
     public static final String COURSE_TITLE = "Course";
-    public static final String NEW_COURSE_DESCRIPTION = "new course description";
-    public static final String NEW_COURSE_NAME = "Computer science";
+    public static final String UPDATED_COURSE_DESCRIPTION = "new course description";
+    public static final String UPDATED_COURSE_NAME = "Computer science";
     public static final String COURSE_NAME = "Data structures"; 
     
     @FindBy(id = "courseNameUpdate")

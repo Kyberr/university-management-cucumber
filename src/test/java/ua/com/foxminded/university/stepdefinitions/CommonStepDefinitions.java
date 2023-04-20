@@ -119,11 +119,11 @@ public class CommonStepDefinitions {
         driver.get(coursesPageUrl);
     }
     
-    @When("the user clicks the delete course button of created course")
-    public void the_user_clicks_the_delete_course_button_of_created_course() {
-        coursesPage.findDeleteCourseButton(CoursePage.NEW_COURSE_NAME)
+    @When("the user clicks the delete course button of updated course")
+    public void the_user_clicks_the_delete_course_button_of_updated_course() {
+        coursesPage.findDeleteCourseButton(CoursePage.UPDATED_COURSE_NAME)
                    .click();
-        coursesPage.findConfirmDeletingButton(CoursePage.NEW_COURSE_NAME)
+        coursesPage.findConfirmDeletingButton(CoursePage.UPDATED_COURSE_NAME)
                    .click();
     }
     
@@ -138,7 +138,7 @@ public class CommonStepDefinitions {
     
     @Then("the created course is not present on the courses list page")
     public void the_created_course_is_not_present_on_the_courses_list_page() {
-        assertFalse(coursesPage.isCoursePresent(CoursePage.NEW_COURSE_NAME));
+        assertFalse(coursesPage.isCoursePresent(CoursePage.UPDATED_COURSE_NAME));
     }
     
     @When("the user clicks an existence course name link")
@@ -155,13 +155,13 @@ public class CommonStepDefinitions {
     @Then("the user enters a new course name into the input field")
     public void the_user_enters_a_new_course_name_into_the_input_field() {
         coursePage.findCourseNameUpdateField()
-                  .sendKeys(CoursePage.NEW_COURSE_NAME);
+                  .sendKeys(CoursePage.UPDATED_COURSE_NAME);
     }
     
     @Then("the user enters new course description into the input field")
     public void the_user_enters_new_course_description_into_the_input_field() {
         coursePage.findCourseDescriptionUpdateField()
-                  .sendKeys(CoursePage.NEW_COURSE_DESCRIPTION);
+                  .sendKeys(CoursePage.UPDATED_COURSE_DESCRIPTION);
     }
     
     @Then("the user clicks the save changes button on the course page")
@@ -172,8 +172,8 @@ public class CommonStepDefinitions {
     
     @Then("the user sees updated couse data on the course page")
     public void the_user_sees_updated_couse_data_on_the_course_page() {
-        assertTrue(coursePage.isCourseDataPresent(CoursePage.NEW_COURSE_NAME, 
-                                                  CoursePage.NEW_COURSE_DESCRIPTION));
+        assertTrue(coursePage.isCourseDataPresent(CoursePage.UPDATED_COURSE_NAME, 
+                                                  CoursePage.UPDATED_COURSE_DESCRIPTION));
     }
     
     @When("the user clicks the SignIn button on the login page")
