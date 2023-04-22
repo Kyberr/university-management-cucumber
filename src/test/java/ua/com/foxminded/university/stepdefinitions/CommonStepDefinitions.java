@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import ua.com.foxminded.university.config.PageUrlConfig;
 import ua.com.foxminded.university.page.CoursePage;
 import ua.com.foxminded.university.page.CoursesPage;
 import ua.com.foxminded.university.page.HomePage;
@@ -20,27 +20,16 @@ public class CommonStepDefinitions {
     
     public static final String ERROR_PAGE_TITLE = "Error page";
     
-    @Value("${coursePageUrlRegex}")
-    private String coursePageUrlRegex;
-    
-    @Value("${coursesPageUrl}")
-    private String coursesPageUrl;
-    
-    @Value("${homePageUrl}")
-    private String homePageUrl;
-    
-    @Value("${loginPageUrl}")
-    private String loginPageUrl;
-    
+    private PageUrlConfig config;
     private LoginPage loginPage;
     private HomePage homePage;
     private CoursesPage coursesPage;
     private CoursePage coursePage;
-    
     private WebDriver driver;
 
-    public CommonStepDefinitions(WebDriver driver) {
+    public CommonStepDefinitions(WebDriver driver, PageUrlConfig config) {
         this.driver = driver;
+        this.config = config;
         this.loginPage = PageFactory.initElements(driver, LoginPage.class);
         this.homePage = PageFactory.initElements(driver, HomePage.class);
         this.coursesPage = PageFactory.initElements(driver, CoursesPage.class);
@@ -69,7 +58,7 @@ public class CommonStepDefinitions {
     
     @Then("the user sees the login page")
     public void the_user_sees_the_login_page() {
-        assertEquals(loginPageUrl, driver.getCurrentUrl());
+        assertEquals(config.getLoginPageUrl(), driver.getCurrentUrl());
     }
     
     @Given("a user sees the courses button on the home page")
@@ -84,7 +73,7 @@ public class CommonStepDefinitions {
     
     @Then("the user goes to the courses list page")
     public void the_user_goes_to_the_courses_list_page() {
-        assertEquals(coursesPageUrl, driver.getCurrentUrl());
+        assertEquals(config.getCoursesPageUrl(), driver.getCurrentUrl());
     }
     
     @Then("the user clicks the create button")
@@ -116,7 +105,7 @@ public class CommonStepDefinitions {
     
     @Given("a user sees the courses list page")
     public void a_user_sees_the_courses_list_page() {
-        driver.get(coursesPageUrl);
+        driver.get(config.getCoursesPageUrl());
     }
     
     @When("the user clicks the delete course button of updated course")
@@ -183,6 +172,6 @@ public class CommonStepDefinitions {
     
     @Then("the user goes to the home page")
     public void the_user_goes_to_the_home_page() {
-        assertEquals(homePageUrl, driver.getCurrentUrl());
+        assertEquals(config.getHomePageUrl(), driver.getCurrentUrl());
     }
 }

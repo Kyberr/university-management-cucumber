@@ -6,33 +6,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import ua.com.foxminded.university.config.PageUrlConfig;
 import ua.com.foxminded.university.page.AdminPage;
 import ua.com.foxminded.university.page.HomePage;
 import ua.com.foxminded.university.page.LoginPage;
 
 public class AdminFlowStepDefinitions {
 
-    @Value("${adminPageUrl}")
-    private String adminPageUrl;
-    
-    @Value("${loginPageUrl}")
-    private String loginPageUrl;
-    
+    private PageUrlConfig config;
     private LoginPage loginPage;
     private HomePage homePage;
     private AdminPage adminPage;
-
     private WebDriver driver;
     
-    @Autowired
-    public AdminFlowStepDefinitions(WebDriver driver) {
+    public AdminFlowStepDefinitions(WebDriver driver, PageUrlConfig config) {
         this.driver = driver;
+        this.config = config;
         this.loginPage = PageFactory.initElements(driver, LoginPage.class);
         this.homePage = PageFactory.initElements(driver, HomePage.class);
         this.adminPage = PageFactory.initElements(driver, AdminPage.class);
@@ -85,7 +78,7 @@ public class AdminFlowStepDefinitions {
     
     @Then("the user sees the admin panel page")
     public void the_user_sees_the_admin_panel_page() {
-        assertEquals(adminPageUrl, driver.getCurrentUrl());
+        assertEquals(config.getAdminPageUrl(), driver.getCurrentUrl());
     }
     
     @Then("the user clicks the Edit button of a user that has an email")
@@ -123,7 +116,7 @@ public class AdminFlowStepDefinitions {
     
     @Given("a user enters admin credentials on the login page")
     public void a_user_enters_admin_credentials_on_the_login_page() {
-        driver.get(loginPageUrl);
+        driver.get(config.getLoginPageUrl());
         loginPage.enterCredentials(LoginPage.ADMIN_LOGIN, LoginPage.PASSWORD);
     }
 }
