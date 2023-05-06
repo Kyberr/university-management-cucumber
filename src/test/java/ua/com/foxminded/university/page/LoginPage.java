@@ -16,7 +16,7 @@ public class LoginPage {
     public static final String ADMIN_LOGIN = "a";
     public static final String PASSWORD = "a";
     
-    @FindBy(xpath = "//input[@value='SignIn']")
+    @FindBy(id = "signInButton")
     private WebElement loginButtonLocator;
     
     @FindBy(name = "password")

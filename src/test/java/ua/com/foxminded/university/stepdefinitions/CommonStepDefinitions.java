@@ -13,6 +13,7 @@ import io.cucumber.java.en.When;
 import ua.com.foxminded.university.config.PageUrlConfig;
 import ua.com.foxminded.university.page.CoursePage;
 import ua.com.foxminded.university.page.CoursesPage;
+import ua.com.foxminded.university.page.GroupPage;
 import ua.com.foxminded.university.page.HomePage;
 import ua.com.foxminded.university.page.LoginPage;
 
@@ -25,6 +26,7 @@ public class CommonStepDefinitions {
     private HomePage homePage;
     private CoursesPage coursesPage;
     private CoursePage coursePage;
+    private GroupPage groupPage;
     private WebDriver driver;
 
     public CommonStepDefinitions(WebDriver driver, PageUrlConfig config) {
@@ -34,6 +36,82 @@ public class CommonStepDefinitions {
         this.homePage = PageFactory.initElements(driver, HomePage.class);
         this.coursesPage = PageFactory.initElements(driver, CoursesPage.class);
         this.coursePage = PageFactory.initElements(driver, CoursePage.class);
+        this.groupPage = PageFactory.initElements(driver, GroupPage.class);
+    }
+    
+    @Then("the user clicks the confirm button of created group")
+    public void the_user_clicks_the_confirm_button_of_created_group() {
+        groupPage.findConfirmDeletingButtonByOrder(GroupPage.CREATED_GROUP_ORDER).click();
+    }
+    
+    @When("the user clicks the delete button of created group")
+    public void the_user_clicks_the_delete_button_of_created_group() {
+        groupPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();;
+    }
+
+    @Then("the deleted group is not present")
+    public void the_deleted_group_is_not_present() {
+        assertTrue(groupPage.groupNameIsNotPresent(GroupPage.UPDATED_GROUP_NAME));
+    }
+    
+    @When("the user clicks on text link of the created group")
+    public void the_user_clicks_on_text_link_of_the_created_group() {
+        groupPage.findLinkText(GroupPage.CREATED_GROUP_NAME).click();
+    }
+    
+    @Then("the user inputs a group name to the group name field")
+    public void the_user_inputs_a_group_name_to_the_group_name_field() {
+        groupPage.updateGroupName(GroupPage.UPDATED_GROUP_NAME);
+    }
+    
+    @Then("the user clicks on the update group button")
+    public void the_user_clicks_on_the_update_group_button() {
+        groupPage.findNameUpdateButton().click();;
+    }
+
+    @Then("the user clicks the confirm button")
+    public void the_user_clicks_the_confirm_button() {
+        groupPage.findConfirmButton().click();
+    }
+    
+    @Then("the user sees the updated group name in the group page")
+    public void the_user_sees_the_updated_group_name_in_the_group_page() {
+        assertTrue(groupPage.isTextPresent(GroupPage.UPDATED_GROUP_NAME));
+    }
+    
+    @Then("the user cliscks on the course name link")
+    public void the_user_cliscks_on_the_course_name_link() {
+        groupPage.findLinkText(GroupPage.EXISTENCE_GROUP_NAME).click();
+    }
+    
+    @Then("the user sees a course page")
+    public void the_user_sees_a_course_page() {
+        assertTrue(driver.getCurrentUrl().matches(config.getGroupPageUrlRegex()));
+    }
+    
+    @Given("a user sees the group list page")
+    public void a_user_sees_the_group_list_page() {
+        driver.get(config.getGroupsPageUrl());
+    }
+    
+    @When("the user clicks the create group button")
+    public void the_user_clicks_the_create_group_button() {
+        groupPage.findCreateButton().click();
+    }
+    
+    @Then("the user imputs a group name")
+    public void the_user_imputs_a_group_name() {
+        groupPage.enterGroupName(GroupPage.CREATED_GROUP_NAME);
+    }
+    
+    @Then("press the save changes button")
+    public void press_the_save_changes_button() {
+        groupPage.findSaveChangesButton().click();
+    }
+    
+    @Then("the user sees the created course on the group list page")
+    public void the_user_sees_the_created_course_on_the_group_list_page() {
+        assertTrue(groupPage.isGroupNamePresent(GroupPage.CREATED_GROUP_NAME));
     }
     
     @When("the user clicks the created course name link")

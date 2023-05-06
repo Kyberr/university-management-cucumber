@@ -28,7 +28,7 @@ public class AdminPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
+    
     public boolean isAuthorizedUserPresent(int userId, String authorityRepresentation) {
         By authorizedUser = By.xpath("//td[text()=" + userId + 
                 "]//parent::tr//td[text()='" + authorityRepresentation + "']");

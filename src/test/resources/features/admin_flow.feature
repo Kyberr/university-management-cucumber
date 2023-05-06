@@ -1,5 +1,11 @@
 Feature: Admin flow
-  The actions that can be done by a user with the admin authorities
+  A user should be able to navigate to the admin panel
+  A user must be the only one with access to the admin panel
+  A user should be able to list all registered users on the admin panel page
+  A user should be able to set required role for each registered user
+  A user should be able to authorize a user (my addition)
+  A user should be able to create/read/update/delete courses
+  A user can Create/Read/Update/Delete group information
 
   Background: A user has the admin authorities
     Given a user enters admin credentials on the login page
@@ -30,12 +36,12 @@ Feature: Admin flow
     When the user clicks the admin panel button on the home page
     Then the user sees the admin panel page
     * the user clicks the authorize button of a user with id
-    * the user select authority in the authorize menu 
+    * the user select authority in the authorize menu
     * the user selects active status in the authorize menu
     * the user enters a password and confirm password
     * the user click the athorize button in the authorize menu
     * the user sees updated data of the user on the admin panel
-    
+
   Scenario: A user should be able to create a course
     Given a user sees the courses button on the home page
     When the user clicks the courses button
@@ -45,22 +51,51 @@ Feature: Admin flow
     * the user enters a course desctiption on the create course panel
     * the user clicks the save changes button on the create course panel
     * the created course is present on the courses list page
-  
+
   Scenario: A user with admin authorities should be able to receive a course
     Given a user sees the courses list page
     When the user clicks an existence course name link
-    Then the user goes to a course page  
-  
+    Then the user goes to a course page
+
   Scenario: A user should be able to update a course
     Given a user sees the courses list page
-    When the user clicks the created course name link    
+    When the user clicks the created course name link
     Then the user goes to a course page
     * the user enters a new course name into the input field
     * the user enters new course description into the input field
     * the user clicks the save changes button on the course page
-    * the user sees updated couse data on the course page 
-    
+    * the user sees updated couse data on the course page
+
   Scenario: A user should be able to delete a course
     Given a user sees the courses list page
     When the user clicks the delete course button of updated course
     Then the created course is not present on the courses list page
+
+  @test
+  Scenario: A user can create a group
+    Given a user sees the group list page
+    When the user clicks the create group button
+    Then the user imputs a group name
+    * press the save changes button
+    * the user sees the created course on the group list page
+
+  Scenario: A user can retrieve a group information
+    Given a user sees the group list page
+    When the user cliscks on the course name link
+    Then the user sees a course page
+
+  @test
+  Scenario: A user can update a group information
+    Given a user sees the group list page
+    When the user clicks on text link of the created group
+    Then the user inputs a group name to the group name field
+    Then the user clicks on the update group button
+    * the user clicks the confirm button
+    * the user sees the updated group name in the group page
+	
+	@test
+  Scenario: A user can delete a group information
+  	Given a user sees the group list page
+  	When the user clicks the delete button of created group
+  	Then the user clicks the confirm button of created group
+  	* the deleted group is not present
