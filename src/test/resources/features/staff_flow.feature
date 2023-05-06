@@ -7,9 +7,10 @@ Feature: The Staff flow
     Given a user enters staff credentials on the login page
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
-    
+  
+  @test
   Scenario: A user should be able to assign groups to a course
-
+		Given 
   
 
   Scenario: A user with staff authorities should be able to assign teacher to a course
