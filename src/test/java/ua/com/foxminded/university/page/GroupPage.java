@@ -13,20 +13,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GroupPage {
     
-    public static final int CREATED_GROUP_ORDER = 3;
     public static final String UPDATED_GROUP_NAME = "lf-71";
-    public static final String EXISTENCE_GROUP_NAME = "ua-77";
     public static final int TIME_WAIT_VISIBILITY = 30;
     public static final String CREATED_GROUP_NAME = "df-85";
-    
-    @FindBy(id = "createButton")
-    private WebElement createButton;
-    
-    @FindBy(id= "createCourseNameInput")
-    private WebElement groupNameInputField;
-    
-    @FindBy(id = "createSubmitButton")
-    private WebElement saveChangesButton;
     
     @FindBy(id = "groupUpdateNameField")
     private WebElement groupUpdateNameField;
@@ -44,24 +33,6 @@ public class GroupPage {
         AjaxElementLocatorFactory factory = 
                 new AjaxElementLocatorFactory(driver, TIME_WAIT_VISIBILITY);
         PageFactory.initElements(factory, this);
-    }
-    
-    public void waitForClickable(By locator) {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(locator));
-    }
-    
-    public WebElement findConfirmDeletingButtonByOrder(int order) {
-        By confirmDeletingButton =By.xpath("//tbody//child::tr[" + order + 
-                "]//*[@id='confirmDeleting']");
-        waitForClickable(confirmDeletingButton);
-        return driver.findElement(confirmDeletingButton);
-    }
-    
-    public WebElement findDeleteButtonByGroupName(String name) {
-        By deleteButton = By.xpath("//a[text()='" + name + 
-                "']//ancestor::tr//*[@id='deleteButton']");
-        return driver.findElement(deleteButton);
     }
     
     public void waitForLocatoring(By locator) {
@@ -100,17 +71,5 @@ public class GroupPage {
         By groupName = By.linkText(name);
         waitForLocatoring(groupName);
         return !driver.findElements(groupName).isEmpty();
-    }
-    
-    public WebElement findSaveChangesButton() {
-        return saveChangesButton;
-    }
-    
-    public void enterGroupName(String name) {
-        groupNameInputField.sendKeys(name);
-    }
-    
-    public WebElement findCreateButton() { 
-        return createButton;
     }
 }

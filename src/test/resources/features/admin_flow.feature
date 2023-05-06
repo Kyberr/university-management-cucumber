@@ -54,7 +54,7 @@ Feature: Admin flow
 
   Scenario: A user with admin authorities should be able to receive a course
     Given a user sees the courses list page
-    When the user clicks an existence course name link
+    When the user clicks a present course name link
     Then the user goes to a course page
 
   Scenario: A user should be able to update a course
@@ -71,7 +71,6 @@ Feature: Admin flow
     When the user clicks the delete course button of updated course
     Then the created course is not present on the courses list page
 
-  @test
   Scenario: A user can create a group
     Given a user sees the group list page
     When the user clicks the create group button
@@ -81,10 +80,9 @@ Feature: Admin flow
 
   Scenario: A user can retrieve a group information
     Given a user sees the group list page
-    When the user cliscks on the course name link
+    When the user clicks on the group name link
     Then the user sees a course page
 
-  @test
   Scenario: A user can update a group information
     Given a user sees the group list page
     When the user clicks on text link of the created group
@@ -93,7 +91,6 @@ Feature: Admin flow
     * the user clicks the confirm button
     * the user sees the updated group name in the group page
 	
-	@test
   Scenario: A user can delete a group information
   	Given a user sees the group list page
   	When the user clicks the delete button of created group

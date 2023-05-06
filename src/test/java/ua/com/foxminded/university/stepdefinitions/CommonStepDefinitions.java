@@ -14,8 +14,10 @@ import ua.com.foxminded.university.config.PageUrlConfig;
 import ua.com.foxminded.university.page.CoursePage;
 import ua.com.foxminded.university.page.CoursesPage;
 import ua.com.foxminded.university.page.GroupPage;
+import ua.com.foxminded.university.page.GroupsPage;
 import ua.com.foxminded.university.page.HomePage;
 import ua.com.foxminded.university.page.LoginPage;
+import ua.com.foxminded.university.page.TeacherPage;
 
 public class CommonStepDefinitions {
     
@@ -27,6 +29,7 @@ public class CommonStepDefinitions {
     private CoursesPage coursesPage;
     private CoursePage coursePage;
     private GroupPage groupPage;
+    private GroupsPage groupsPage;
     private WebDriver driver;
 
     public CommonStepDefinitions(WebDriver driver, PageUrlConfig config) {
@@ -37,16 +40,81 @@ public class CommonStepDefinitions {
         this.coursesPage = PageFactory.initElements(driver, CoursesPage.class);
         this.coursePage = PageFactory.initElements(driver, CoursePage.class);
         this.groupPage = PageFactory.initElements(driver, GroupPage.class);
+        this.groupsPage = PageFactory.initElements(driver, GroupsPage.class);
+    }
+    
+    @Then("the user clicks the deassign teacher button")
+    public void the_user_clicks_the_deassign_teacher_button() {
+        coursePage.findDeassignTeacherButton(
+                TeacherPage.ASSIGNED_TEACHER_LAST_NAME).click();
+    }
+    
+    @Then("the user clicks the deassign confirm button")
+    public void the_user_clicks_the_deassign_confirm_button() {
+        coursePage.findDeassignConfirmButtonByLastName(
+                TeacherPage.ASSIGNED_TEACHER_LAST_NAME).click();
+    }
+    
+    @Then("the couse page has no the deassigned teacher")
+    public void the_couse_page_has_no_the_deassigned_teacher() {
+        assertFalse(coursePage.isTeacherPresent(
+                TeacherPage.ASSIGNED_TEACHER_LAST_NAME));
+    }
+    
+    @Then("the user clicks the assign teacher button")
+    public void the_user_clicks_the_assign_teacher_button() {
+        coursePage.findSssignButton().click();
+    }
+    
+    @Then("the user select a teacher to a course")
+    public void the_user_select_a_teacher_to_a_course() {
+        coursePage.selectTeacherByName(TeacherPage.TEACHER_NAME);
+    }
+    
+    @Then("the user clicks the save changes button")
+    public void the_user_clicks_the_save_changes_button() {
+        coursePage.findSaveAssignmentButton().click();
+    }
+    
+    @Then("the user sees the selected teacher on the course page")
+    public void the_user_sees_the_selected_teacher_on_the_course_page() {
+        assertTrue(coursePage.isTeacherPresent(TeacherPage.ASSIGNED_TEACHER_LAST_NAME));
+    }
+    
+    @When("the user clicks delete button of a present group")
+    public void the_user_clicks_delete_button_of_a_present_group() {
+        groupsPage.findDeleteButtonByGroupName(GroupsPage.PRESENT_GROUP_NAME).click();;
+    }
+    
+    @Then("the user clicks confirm button of the present group")
+    public void the_user_clicks_confirm_button_of_the_present_group() {
+        groupsPage.findConfirmDeletingButtonByGroupName(
+                GroupsPage.PRESENT_GROUP_NAME).click();;
+    }
+    
+    @Given("a user on the home page")
+    public void a_user_on_the_home_page() {
+        driver.get(config.getHomePageUrl());
+    }
+    
+    @When("the user clicks on the groups button")
+    public void the_user_clicks_on_the_groups_button() {
+        homePage.findGroupsButton().click();;
+    }
+    
+    @Then("the user sees a groups list page")
+    public void the_user_sees_a_groups_list_page() {
+        assertEquals(driver.getCurrentUrl(), config.getGroupsPageUrl());
     }
     
     @Then("the user clicks the confirm button of created group")
     public void the_user_clicks_the_confirm_button_of_created_group() {
-        groupPage.findConfirmDeletingButtonByOrder(GroupPage.CREATED_GROUP_ORDER).click();
+        groupsPage.findConfirmDeletingButtonByOrder(GroupsPage.CREATED_GROUP_ORDER).click();
     }
     
     @When("the user clicks the delete button of created group")
     public void the_user_clicks_the_delete_button_of_created_group() {
-        groupPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();;
+        groupsPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();;
     }
 
     @Then("the deleted group is not present")
@@ -79,14 +147,9 @@ public class CommonStepDefinitions {
         assertTrue(groupPage.isTextPresent(GroupPage.UPDATED_GROUP_NAME));
     }
     
-    @Then("the user cliscks on the course name link")
-    public void the_user_cliscks_on_the_course_name_link() {
-        groupPage.findLinkText(GroupPage.EXISTENCE_GROUP_NAME).click();
-    }
-    
-    @Then("the user sees a course page")
-    public void the_user_sees_a_course_page() {
-        assertTrue(driver.getCurrentUrl().matches(config.getGroupPageUrlRegex()));
+    @Then("the user clicks on the group name link")
+    public void the_user_clicks_on_the_group_name_link() {
+        groupPage.findLinkText(GroupsPage.PRESENT_GROUP_NAME).click();
     }
     
     @Given("a user sees the group list page")
@@ -96,17 +159,17 @@ public class CommonStepDefinitions {
     
     @When("the user clicks the create group button")
     public void the_user_clicks_the_create_group_button() {
-        groupPage.findCreateButton().click();
+        groupsPage.findCreateButton().click();
     }
     
     @Then("the user imputs a group name")
     public void the_user_imputs_a_group_name() {
-        groupPage.enterGroupName(GroupPage.CREATED_GROUP_NAME);
+        groupsPage.enterGroupName(GroupPage.CREATED_GROUP_NAME);
     }
     
     @Then("press the save changes button")
     public void press_the_save_changes_button() {
-        groupPage.findSaveChangesButton().click();
+        groupsPage.findSaveChangesButton().click();
     }
     
     @Then("the user sees the created course on the group list page")
@@ -208,8 +271,8 @@ public class CommonStepDefinitions {
         assertFalse(coursesPage.isCoursePresent(CoursePage.UPDATED_COURSE_NAME));
     }
     
-    @When("the user clicks an existence course name link")
-    public void the_user_clicks_an_existence_course_name_link() {
+    @When("the user clicks a present course name link")
+    public void the_user_clicks_a_present_course_name_link() {
         coursesPage.findCouseLink(CoursesPage.EXISTENCE_COURSE_NAME)
                    .click();
     }

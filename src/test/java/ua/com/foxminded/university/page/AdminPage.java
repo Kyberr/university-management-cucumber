@@ -79,7 +79,7 @@ public class AdminPage {
         Select select = new Select(selectElement);
         select.selectByValue(authority);
     }
-    
+
     public void selectAuthority(String authority, int userId) {
         By authoritySelect = By.id("selectAuthority" + userId + "");
         WebElement selectElement = driver.findElement(authoritySelect);

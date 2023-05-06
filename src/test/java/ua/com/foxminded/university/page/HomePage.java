@@ -17,11 +17,18 @@ public class HomePage {
     @FindBy(id = "signInButton")
     private WebElement signInButton;
     
+    @FindBy(id = "groupsButton")
+    private WebElement groupsButton;
+    
     private WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+    }
+    
+    public WebElement findGroupsButton() {
+        return groupsButton;
     }
 
     public boolean isCoursesButtonPresent() {

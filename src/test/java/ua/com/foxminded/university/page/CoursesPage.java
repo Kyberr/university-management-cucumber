@@ -34,7 +34,6 @@ public class CoursesPage {
         PageFactory.initElements(driver, this);
     }
     
-
     public WebElement findConfirmDeletingButton(String courseName) {
         By confirmDeletingButton = By.xpath("//div[text()='" + courseName + 
                 "']//ancestor::form//button[@id='confirmDeletingButton']");

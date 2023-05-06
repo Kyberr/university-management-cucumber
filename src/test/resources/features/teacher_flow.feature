@@ -1,10 +1,35 @@
 Feature: Teacher flow
   A user should be able list all courses and have only the read access
+ 	A user should be able to list all groups information (read access)
   
   Background: A user has the teacher authorities
     Given a user enters teacher credentials on the login page
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
+  
+  Scenario: A user with teacher authorities has no access to delete a group information
+  	Given a user sees the group list page
+  	When the user clicks delete button of a present group
+  	Then the user clicks confirm button of the present group
+  	* the user request is denied
+  
+  Scenario: A user with teacher authorities has no access to retrieve and 
+  					update a group information
+ 		Given a user sees the group list page
+    When the user cliscks on the course name link
+    Then the user request is denied
+  
+  Scenario: A user with teacher authorities has no acces to a create group
+  	Given a user sees the group list page
+  	When the user clicks the create group button
+  	Then the user imputs a group name
+  	* press the save changes button
+  	* the user request is denied
+  
+  Scenario: A user with teacher authorities should be able to list all groups
+  	Given a user on the home page
+  	When the user clicks on the groups button
+  	Then the user sees a groups list page
       
   Scenario: A user with teacher authorities should be able to list courses
     When the user clicks the courses button
