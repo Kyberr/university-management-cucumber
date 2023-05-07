@@ -43,6 +43,11 @@ public class CommonStepDefinitions {
         this.groupsPage = PageFactory.initElements(driver, GroupsPage.class);
     }
     
+    @Then("the user goes to a group page")
+    public void the_user_goes_to_a_group_page() {
+        assertTrue(driver.getCurrentUrl().matches(config.getGroupPageUrlRegex()));
+    }
+    
     @Then("the user clicks the deassign teacher button")
     public void the_user_clicks_the_deassign_teacher_button() {
         coursePage.findDeassignTeacherButton(
@@ -264,7 +269,6 @@ public class CommonStepDefinitions {
         coursesPage.findConfirmDeletingButton(CoursesPage.EXISTENCE_COURSE_NAME)
                    .click();
     }
-
     
     @Then("the created course is not present on the courses list page")
     public void the_created_course_is_not_present_on_the_courses_list_page() {
@@ -279,7 +283,7 @@ public class CommonStepDefinitions {
     
     @Then("the user goes to a course page")
     public void the_user_goes_to_a_course_page() {
-        assertEquals(CoursePage.COURSE_TITLE, driver.getTitle());
+        assertTrue(driver.getCurrentUrl().matches(config.getCoursePageUrlRegex()));
     }
     
     @Then("the user enters a new course name into the input field")

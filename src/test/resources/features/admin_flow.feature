@@ -77,11 +77,12 @@ Feature: Admin flow
     Then the user imputs a group name
     * press the save changes button
     * the user sees the created course on the group list page
-
+	
+	@test
   Scenario: A user can retrieve a group information
     Given a user sees the group list page
     When the user clicks on the group name link
-    Then the user sees a course page
+    Then the user goes to a group page
 
   Scenario: A user can update a group information
     Given a user sees the group list page

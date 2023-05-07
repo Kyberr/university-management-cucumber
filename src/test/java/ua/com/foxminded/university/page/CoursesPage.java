@@ -1,10 +1,14 @@
 package ua.com.foxminded.university.page;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +38,11 @@ public class CoursesPage {
         PageFactory.initElements(driver, this);
     }
     
+    public void waitForClickable(WebElement element ) {
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
+                ExpectedConditions.elementToBeClickable(element));
+    }
+    
     public WebElement findConfirmDeletingButton(String courseName) {
         By confirmDeletingButton = By.xpath("//div[text()='" + courseName + 
                 "']//ancestor::form//button[@id='confirmDeletingButton']");
@@ -47,7 +56,9 @@ public class CoursesPage {
     }
     
     public WebElement findCouseLink(String couseName) {
-        return driver.findElement(By.linkText(couseName));
+        WebElement link = driver.findElement(By.linkText(couseName));
+        waitForClickable(link);
+        return link;
     }
     
     public boolean isCoursePresent(String courseName) {

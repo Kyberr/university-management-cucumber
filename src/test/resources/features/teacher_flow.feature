@@ -13,10 +13,9 @@ Feature: Teacher flow
   	Then the user clicks confirm button of the present group
   	* the user request is denied
   
-  Scenario: A user with teacher authorities has no access to retrieve and 
-  					update a group information
+  Scenario: The teacher role has no access to retrieve and update a group information
  		Given a user sees the group list page
-    When the user cliscks on the course name link
+    When the user clicks on the group name link
     Then the user request is denied
   
   Scenario: A user with teacher authorities has no acces to a create group
@@ -45,12 +44,12 @@ Feature: Teacher flow
     
   Scenario: A user with teacher authorities has access to receive a course
     Given a user sees the courses list page
-    When the user clicks an existence course name link
+    When the user clicks a present course name link
     Then the user goes to a course page 
   
   Scenario: A user with teacher authorities has no access to update a course
     Given a user sees the courses list page
-    When the user clicks an existence course name link
+    When the user clicks a present course name link
     Then the user goes to a course page
     * the user enters a new course name into the input field
     * the user enters new course description into the input field

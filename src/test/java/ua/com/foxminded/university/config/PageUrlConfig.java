@@ -12,8 +12,9 @@ public class PageUrlConfig {
     
     private String adminPageUrl;
     private String loginPageUrl;
-    private String coursesPageUrl;
     private String homePageUrl;
     private String groupsPageUrl;
     private String groupPageUrlRegex;
+    private String coursesPageUrl;
+    private String coursePageUrlRegex;
 }

@@ -13,10 +13,9 @@ Feature: Student flow
   	Then the user clicks confirm button of the present group
   	* the user request is denied
   
-  Scenario: A user with student authorities has no access to retrieve and 
-  					update a group information
+  Scenario: The student role has no access to retrieve and update a group information
   	Given a user sees the group list page
-    When the user cliscks on the course name link
+    When the user clicks on the group name link 
     Then the user request is denied
   
   Scenario: A user with student authorities has no acces to a create group
@@ -45,12 +44,12 @@ Feature: Student flow
   
   Scenario: A user with student authorities has no acccess to receive a course  
     Given a user sees the courses list page
-    When the user clicks an existence course name link
+    When the user clicks a present course name link
     Then the user request is denied
     
-  Scenario: A user with student authorities has no access to update a course
+  Scenario: The student role has no access to update a course
     Given a user sees the courses list page
-    When the user clicks an existence course name link   
+    When the user clicks a present course name link   
     Then the user request is denied
     
   Scenario: A user with student authorities has no access to delete a course

@@ -8,11 +8,6 @@ Feature: The Staff flow
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
   
-  @test
-  Scenario: A user should be able to assign groups to a course
-		Given 
-  
-
   Scenario: A user with staff authorities should be able to assign teacher to a course
     Given a user sees the courses list page
     When the user clicks a present course name link
@@ -42,7 +37,8 @@ Feature: The Staff flow
     Given a user sees the courses list page
     When the user clicks a present course name link
     Then the user goes to a course page
-
+	
+	@courseUpdatingByStaff
   Scenario: A user with staff authorities should be able to update a course
     Given a user sees the courses list page
     When the user clicks the created course name link
