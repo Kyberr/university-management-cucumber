@@ -17,4 +17,6 @@ public class PageUrlConfig {
     private String groupPageUrlRegex;
     private String coursesPageUrl;
     private String coursePageUrlRegex;
+    private String hostUrl;
+    private String dayTimetableUrlRegex;
 }

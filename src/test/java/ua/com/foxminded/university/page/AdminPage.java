@@ -1,14 +1,9 @@
 package ua.com.foxminded.university.page;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
 public class AdminPage {
     
@@ -22,74 +17,50 @@ public class AdminPage {
     public static final String STAFF_AUTHORITY_REPRESENTATION = "Staff";
     public static final String ADMIN_AUTHORITY_REPRESENTATION = "Admin";
     
-    private WebDriver driver;
-    
-    public AdminPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-    
-    public boolean isAuthorizedUserPresent(int userId, String authorityRepresentation) {
-        By authorizedUser = By.xpath("//td[text()=" + userId + 
+    public SelenideElement findAuthorizedUser(int userId, String authorityRepresentation) {
+        return Selenide.$x("//td[text()=" + userId + 
                 "]//parent::tr//td[text()='" + authorityRepresentation + "']");
-        return !driver.findElements(authorizedUser).isEmpty();
     }
     
-    public boolean isUpdatedUserAuthorityPresent(String email, String authorityRepresentation) {
-        By updatedUserAuthority = By.xpath("//td[text()='" + email + 
+    public SelenideElement findUpdatedUserAuthority(String email, String authorityRepresentation) {
+        return Selenide.$x("//td[text()='" + email + 
                 "']//parent::tr//td[text()='" + authorityRepresentation + "']");
-        return !driver.findElements(updatedUserAuthority).isEmpty();
     }
     
-    public WebElement findAuthorizeButton(int userId) {
-        return driver.findElement(By.id("authorizeButton" + userId + ""));
+    public SelenideElement findAuthorizeButton(int userId) {
+        return Selenide.$(By.id("authorizeButton" + userId));
     }
     
-    public WebElement findSaveChangesButton(int userId) {
-        return driver.findElement(By.id("saveChanges" + userId + ""));
-    }
-    
-    public void waitForClickable(WebElement element ) {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                ExpectedConditions.elementToBeClickable(element));
+    public SelenideElement findSaveChangesButton(int userId) {
+        return Selenide.$(By.id("saveChanges" + userId));
     }
     
     public void enterPassword(int userId, String password) {
-        By passwordField = By.id("password" + userId + "");
-        By confirmPassField = By.id("confirmPassword" + userId + "");
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(confirmPassField).sendKeys(password);
+        Selenide.$(By.id("password" + userId)).setValue(password);
+        Selenide.$(By.id("confirmPassword" + userId)).setValue(password);
     }
     
-    public WebElement findAuthorizeButtonOfAuthorizedMenu(int userId) {
-        By authorizeButton = By.id("authorizeButtonOfAuthorizedMenu" + userId + "");
-        return driver.findElement(authorizeButton);
+    public SelenideElement findAuthorizeButtonOfAuthorizedMenu(int userId) {
+        return Selenide.$(By.id("authorizeButtonOfAuthorizedMenu" + userId));
     }
     
     public void selectActiveStatusInAuthorizeMenu(Boolean status, int userId) {
-        By activeStatus = By.id("authorizedActiveStatus" + userId + "");
-        WebElement selectElement = driver.findElement(activeStatus);
-        Select select = new Select(selectElement);
-        select.selectByValue(status.toString());
+        Selenide.$(By.id("authorizedActiveStatus" + userId))
+                .selectOptionByValue(status.toString());
     }
     
     public void selectAuthorityInAuthorizeMenu(String authority, int userId) {
-        By authoritySelect = By.id("authorizedAuthority" + userId + "");
-        WebElement selectElement = driver.findElement(authoritySelect);
-        Select select = new Select(selectElement);
-        select.selectByValue(authority);
+        Selenide.$(By.id("authorizedAuthority" + userId))
+                .selectOptionByValue(authority);
     }
 
     public void selectAuthority(String authority, int userId) {
-        By authoritySelect = By.id("selectAuthority" + userId + "");
-        WebElement selectElement = driver.findElement(authoritySelect);
-        Select select = new Select(selectElement);
-        select.selectByValue(authority);
+        Selenide.$(By.id("selectAuthority" + userId))
+                .selectOptionByValue(authority);
     }
     
-    public WebElement findEditButton(String email, int userId) {
-        By editButton = By.xpath("//td[text()='" + email + 
+    public SelenideElement findEditButton(String email, int userId) {
+        return Selenide.$x("//td[text()='" + email + 
                 "']//parent::tr//button[@id='editButton" + userId + "']");
-        return  driver.findElement(editButton);
     }
 }

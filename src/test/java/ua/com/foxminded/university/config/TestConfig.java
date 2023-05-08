@@ -18,21 +18,21 @@ public class TestConfig {
     public static final String FIREFOX_DEF_VALUE = "firefox";
     public static final String CHROME_KEY = "chrome";
     
-    @Bean
-    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public WebDriver driver() {
-        WebDriver driver;
-        String webdriver = System.getProperty(CHROME_KEY, FIREFOX_DEF_VALUE);
-
-        switch (webdriver) {
-        case FIREFOX_DEF_VALUE:
-            driver = new FirefoxDriver();
-            return driver;
-        case CHROME_KEY:
-            driver = new ChromeDriver();
-            return driver;
-        default:
-            throw new RuntimeException("Unsupported webdriver");
-        }
-    }
+//    @Bean
+//    @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+//    public WebDriver driver() {
+//        WebDriver driver;
+//        String webdriver = System.getProperty(CHROME_KEY, FIREFOX_DEF_VALUE);
+//
+//        switch (webdriver) {
+//        case FIREFOX_DEF_VALUE:
+//            driver = new FirefoxDriver();
+//            return driver;
+//        case CHROME_KEY:
+//            driver = new ChromeDriver();
+//            return driver;
+//        default:
+//            throw new RuntimeException("Unsupported webdriver");
+//        }
+//    }
 }

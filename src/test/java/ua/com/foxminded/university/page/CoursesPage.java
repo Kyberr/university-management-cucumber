@@ -1,83 +1,45 @@
 package ua.com.foxminded.university.page;
 
-import java.time.Duration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import lombok.RequiredArgsConstructor;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
-@RequiredArgsConstructor
 public class CoursesPage {
     
     public static final int COURSE_ID = 4;
     public static final String COURSE_DESCRIPTION = "some description";
-    public static final String EXISTENCE_COURSE_NAME = "Programming";
+    public static final String PRESENT_COURSE_NAME = "Programming";
     
-    @FindBy(id = "createButton")
-    private WebElement createButton;
     
-    @FindBy(id = "createCourseNameInput")
-    private WebElement createCourseNameInput;
-    
-    @FindBy(id = "createDescriptionInput")
-    private WebElement createCourseDescriptionInput;
-    
-    @FindBy(id = "createSubmitButton")
-    private WebElement saveChangesButtonOfCreatePnale;
-    
-    private WebDriver driver;
-
-    public CoursesPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-    
-    public void waitForClickable(WebElement element ) {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                ExpectedConditions.elementToBeClickable(element));
-    }
-    
-    public WebElement findConfirmDeletingButton(String courseName) {
-        By confirmDeletingButton = By.xpath("//div[text()='" + courseName + 
+    public SelenideElement findConfirmDeletingButton(String courseName) {
+        return Selenide.$x("//div[text()='" + courseName + 
                 "']//ancestor::form//button[@id='confirmDeletingButton']");
-        return driver.findElement(confirmDeletingButton);
     }
     
-    public WebElement findDeleteCourseButton(String courseName) {
-        By deleteCourseButton = By.xpath("//a[text()='" + courseName + 
+    public SelenideElement findDeleteCourseButton(String courseName) {
+        return Selenide.$x("//a[text()='" + courseName + 
                 "']//ancestor::tr//button[@id='deleteCourseButton']");
-        return driver.findElement(deleteCourseButton);
     }
     
-    public WebElement findCouseLink(String couseName) {
-        WebElement link = driver.findElement(By.linkText(couseName));
-        waitForClickable(link);
-        return link;
+    public SelenideElement findCouseLink(String couseName) {
+        return Selenide.$(By.linkText(couseName));
     }
     
-    public boolean isCoursePresent(String courseName) {
-        return !driver.findElements(By.linkText(courseName)).isEmpty();
+    public SelenideElement findSaveChangesButtonOfCreatePanel() {
+        return Selenide.$(By.id("createSubmitButton"));
     }
     
-    public WebElement findSaveChangesButtonOfCreatePanel() {
-        return saveChangesButtonOfCreatePnale;
+    public SelenideElement findCourseDescriptionInputField() {
+        return Selenide.$(By.id("createDescriptionInput"));
     }
     
-    public WebElement findCourseDescriptionInputField() {
-        return createCourseDescriptionInput;
+    public SelenideElement findCourseNameInputField() {
+        return Selenide.$(By.id("createCourseNameInput"));
     }
     
-    public WebElement findCourseNameInputField() {
-        return createCourseNameInput;
-    }
-    
-    public WebElement findCreateButton() {
-        return createButton;
+    public SelenideElement findCreateButton() {
+        return Selenide.$(By.id("createButton"));
     }
 }

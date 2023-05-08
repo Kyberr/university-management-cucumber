@@ -7,17 +7,17 @@ Feature: Admin flow
   A user should be able to create/read/update/delete courses
   A user can Create/Read/Update/Delete group information
 
-  Background: A user has the admin authorities
+  Background: A user authorizes with admin authorities
     Given a user enters admin credentials on the login page
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
-
-  Scenario: A user should be able to navigate to the admin panel
+	
+  Scenario: The admin role navigates to the admin panel
     Given the user sees the admin panel button on the home page
     When the user clicks the admin panel button on the home page
     Then the user sees the admin panel page
 
-  Scenario Outline: A user should be able to set required role for each registered user
+  Scenario Outline: The admin role sets required role for each registered user
     Given the user sees the admin panel button on the home page
     When the user clicks the admin panel button on the home page
     Then the user sees the admin panel page
@@ -30,8 +30,8 @@ Feature: Admin flow
       | role  |
       | admin |
       | staff |
-
-  Scenario: A user should be able to authorize a user
+	
+  Scenario: The admin role authorizes a user
     Given the user sees the admin panel button on the home page
     When the user clicks the admin panel button on the home page
     Then the user sees the admin panel page
@@ -42,7 +42,7 @@ Feature: Admin flow
     * the user click the athorize button in the authorize menu
     * the user sees updated data of the user on the admin panel
 
-  Scenario: A user should be able to create a course
+  Scenario: The admin role creates a course
     Given a user sees the courses button on the home page
     When the user clicks the courses button
     Then the user goes to the courses list page
@@ -51,13 +51,13 @@ Feature: Admin flow
     * the user enters a course desctiption on the create course panel
     * the user clicks the save changes button on the create course panel
     * the created course is present on the courses list page
-
-  Scenario: A user with admin authorities should be able to receive a course
+	
+  Scenario: The admin role receives a course
     Given a user sees the courses list page
     When the user clicks a present course name link
     Then the user goes to a course page
 
-  Scenario: A user should be able to update a course
+  Scenario: The admin role updates a course
     Given a user sees the courses list page
     When the user clicks the created course name link
     Then the user goes to a course page
@@ -66,25 +66,24 @@ Feature: Admin flow
     * the user clicks the save changes button on the course page
     * the user sees updated couse data on the course page
 
-  Scenario: A user should be able to delete a course
+  Scenario: The admin role deletes a course
     Given a user sees the courses list page
     When the user clicks the delete course button of updated course
     Then the created course is not present on the courses list page
 
-  Scenario: A user can create a group
+  Scenario: The admin creates a group
     Given a user sees the group list page
     When the user clicks the create group button
     Then the user imputs a group name
     * press the save changes button
     * the user sees the created course on the group list page
 	
-	@test
-  Scenario: A user can retrieve a group information
+  Scenario: The admin role retrieves a group information
     Given a user sees the group list page
     When the user clicks on the group name link
     Then the user goes to a group page
 
-  Scenario: A user can update a group information
+  Scenario: The admin role updates a group information
     Given a user sees the group list page
     When the user clicks on text link of the created group
     Then the user inputs a group name to the group name field
@@ -92,7 +91,7 @@ Feature: Admin flow
     * the user clicks the confirm button
     * the user sees the updated group name in the group page
 	
-  Scenario: A user can delete a group information
+  Scenario: The admin deletes a group information
   	Given a user sees the group list page
   	When the user clicks the delete button of created group
   	Then the user clicks the confirm button of created group

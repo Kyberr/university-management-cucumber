@@ -4,3 +4,4 @@
 .settings/
 cucumber-debag-maven
 target/
+build/

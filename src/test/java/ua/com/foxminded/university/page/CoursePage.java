@@ -1,11 +1,9 @@
 package ua.com.foxminded.university.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 
 public class CoursePage {
     
@@ -13,80 +11,49 @@ public class CoursePage {
     public static final String UPDATED_COURSE_NAME = "Computer science";
     public static final String COURSE_NAME = "Data structures"; 
     
-    @FindBy(id = "courseNameUpdate")
-    private WebElement courseNameUpdateField;
-    
-    @FindBy(id = "courseDescriptionUpdate")
-    private WebElement courseDescriptionUpdateField;
-    
-    @FindBy(id = "saveUpdatedChanges")
-    private WebElement saveUpdatedChangesButton;
-    
-    @FindBy(id = "assignButton")
-    private WebElement assignButton; 
-    
-    @FindBy(id = "teacherSelect")
-    private WebElement teacherSelect;
-    
-    @FindBy(id = "saveAssignmentButton")
-    private WebElement saveAssignmentButton;
-    
-    private WebDriver driver;
-    
-    public CoursePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public SelenideElement findAssignButton() {
+        return Selenide.$(By.id("assignButton"));
     }
     
-    public WebElement findSssignButton() {
-        return assignButton;
+    public SelenideElement findCourseName(String name) {
+        return Selenide.$x("//div[text()='" + name + "']");
     }
     
-    public boolean isCourseDataPresent(String courseName, String description) {
-        By courseNameElement = By.xpath("//div[text()='" + courseName + "']");
-        By courseDescriptionElement = By.xpath("//div[text()='" + description + "']");
-        
-        boolean isCourseName = !driver.findElements(courseNameElement).isEmpty();
-        boolean isCourseDescription = !driver.findElements(courseDescriptionElement)
-                                             .isEmpty();
-        return isCourseName && isCourseDescription;
+    public SelenideElement findCourseDescription(String description) {
+        return Selenide.$x("//div[text()='" + description + "']");
     }
-    
-    public WebElement findDeassignConfirmButtonByLastName(String lastName) {
-        By deassignConfirmButton = By.xpath("//td[text()='" + lastName + 
+
+    public SelenideElement findDeassignConfirmButtonByLastName(String lastName) {
+        return Selenide.$x("//td[text()='" + lastName + 
                 "']//parent::tr//child::button[@id='confirmDeassignButton']");
-        return driver.findElement(deassignConfirmButton);
     }
     
-    public boolean isTeacherPresent(String lastName) {
-        By teacher = By.xpath("//td[text()='" + lastName + "']");
-        return !driver.findElements(teacher).isEmpty();
+    public SelenideElement checkTeacherPresence(String lastName) {
+        return Selenide.$x("//td[text()='" + lastName + "']");
     }
     
-    public WebElement findSaveAssignmentButton() {
-        return saveAssignmentButton;
+    public SelenideElement findSaveAssignmentButton() {
+        return Selenide.$(By.id("saveAssignmentButton"));
     }
     
     public void selectTeacherByName(String name) {
-        Select select = new Select(teacherSelect);
-        select.selectByVisibleText(name);
+        Selenide.$(By.id("teacherSelect")).selectOption(name);
     }
     
-    public WebElement findDeassignTeacherButton(String lastName) {
-        By deassignTeacherButton = By.xpath("//td[text()='" + lastName + 
+    public SelenideElement findDeassignTeacherButton(String lastName) {
+        return Selenide.$x("//td[text()='" + lastName + 
                 "']//parent::tr//child::button[@id='deassignTeacherButton']");
-        return driver.findElement(deassignTeacherButton);
     }
     
-    public WebElement findSaveUpdatedChangesButton() {
-        return saveUpdatedChangesButton;
+    public SelenideElement findSaveUpdatedChangesButton() {
+        return Selenide.$(By.id("saveUpdatedChanges"));
     }
     
-    public WebElement findCourseDescriptionUpdateField() {
-        return courseDescriptionUpdateField;
+    public SelenideElement findCourseDescriptionUpdateField() {
+        return Selenide.$(By.id("courseDescriptionUpdate"));
     }
     
-    public WebElement findCourseNameUpdateField() {
-        return courseNameUpdateField;
+    public SelenideElement findCourseNameUpdateField() {
+        return Selenide.$(By.id("courseNameUpdate"));
     }
 }

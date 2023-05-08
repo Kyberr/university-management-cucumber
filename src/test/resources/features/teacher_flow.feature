@@ -2,12 +2,12 @@ Feature: Teacher flow
   A user should be able list all courses and have only the read access
  	A user should be able to list all groups information (read access)
   
-  Background: A user has the teacher authorities
+  Background: A user authorizes with teacher authorities
     Given a user enters teacher credentials on the login page
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
   
-  Scenario: A user with teacher authorities has no access to delete a group information
+  Scenario: The teacher role has no access to delete a group information
   	Given a user sees the group list page
   	When the user clicks delete button of a present group
   	Then the user clicks confirm button of the present group
@@ -18,23 +18,23 @@ Feature: Teacher flow
     When the user clicks on the group name link
     Then the user request is denied
   
-  Scenario: A user with teacher authorities has no acces to a create group
+  Scenario: The teacher role has no acces to a create group
   	Given a user sees the group list page
   	When the user clicks the create group button
   	Then the user imputs a group name
   	* press the save changes button
   	* the user request is denied
   
-  Scenario: A user with teacher authorities should be able to list all groups
+  Scenario: The user role lists all groups
   	Given a user on the home page
   	When the user clicks on the groups button
-  	Then the user sees a groups list page
+  	Then the user goes to groups list page
       
-  Scenario: A user with teacher authorities should be able to list courses
+  Scenario: The teacher role lists courses
     When the user clicks the courses button
     * the user goes to the courses list page
     
-  Scenario: A user with teacher authorities has no access to create a course
+  Scenario: The teacher role has no access to create a course
     Given a user sees the courses list page
     When the user clicks the create button
     Then the user enters a course name on the create course panel
@@ -42,12 +42,12 @@ Feature: Teacher flow
     * the user clicks the save changes button on the create course panel
     * the user request is denied
     
-  Scenario: A user with teacher authorities has access to receive a course
+  Scenario: The teacher role has access to receive a course
     Given a user sees the courses list page
     When the user clicks a present course name link
     Then the user goes to a course page 
   
-  Scenario: A user with teacher authorities has no access to update a course
+  Scenario: The teacher role has no access to update a course
     Given a user sees the courses list page
     When the user clicks a present course name link
     Then the user goes to a course page
@@ -56,8 +56,8 @@ Feature: Teacher flow
     * the user clicks the save changes button on the course page
     * the user request is denied
     
-  Scenario: A user with teacher authrorities has no access to delete a course
+  Scenario: The teacher role has no access to delete a course
     Given a user sees the courses list page
-    When the user clicks the delete course button of a existence course
+    When the user clicks the delete course button of a present course
     Then the created course is not present on the courses list page   
     
