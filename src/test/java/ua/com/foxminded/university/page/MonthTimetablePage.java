@@ -9,41 +9,38 @@ import com.codeborne.selenide.SelenideElement;
 public class MonthTimetablePage {
     
     public static final int FIRST_NODE_INDEX = 1;
+    public static final String MATHEMATICS_LESSON = "Mathematics";
     public static final String PROGRAMMING_LESSON = "Programming";
-    public static final String CREATE_BUTTON_LOCATOR = "(//button[@id='createButton'])[1]";
-    public static final String TIME_SELECTION_LOCATOR = "(//select[@id='startTime'])[1]";
-    public static final String BREAK_DURATION_SELECTION_LOCATOR = 
-            "(//select[@id='breakDuration'])[1]";
-    public static final String LESSON_SELECTION_LOCATOR = "(//select[@id='lessonSelection'])[1]";
-    public static final String GROUP_SELECTION_LOCATOR = "(//select[@id='groupSelection'])[1]";
-    public static final String SAVE_CREATED_TIMETABLE_BUTTON_LOCATOR = 
-            "(//button[@id='createSubmitButton'])[1]";
     public static final LocalTime FIRST_LESSON_TIME = LocalTime.of(8, 0);
     public static final Duration BREAK_DURATION = Duration.ofMinutes(15);
     public static final String GROUP_NAME = "ua-77";
     
+    public void selectLesson(String lessonName) {
+        Selenide.$x("(//select[@id='lessonSelection'])[1]").selectOption(lessonName);
+    }
+    
+    public SelenideElement findExpandButton() {
+        return Selenide.$x("(//button[@id='expandButton'])[1]");
+    }
+    
     public SelenideElement findSaveCreatedTimetableButton() {
-        return Selenide.$x(SAVE_CREATED_TIMETABLE_BUTTON_LOCATOR);
+        return Selenide.$x("(//button[@id='createSubmitButton'])[1]");
     }
     
     public void selectGroup(String groupName) {
-        Selenide.$x(GROUP_SELECTION_LOCATOR).selectOption(groupName);
-    }
-    
-    public void selectLesson(String lessonName) {
-        Selenide.$x(LESSON_SELECTION_LOCATOR).selectOption(lessonName);
+        Selenide.$x("(//select[@id='groupSelection'])[1]").selectOption(groupName);
     }
     
     public void selectBreakDuration(Duration duration) {
-        Selenide.$x(BREAK_DURATION_SELECTION_LOCATOR)
+        Selenide.$x("(//select[@id='breakDuration'])[1]")
                 .selectOption(String.valueOf(duration.toMinutes()));
     }
     
     public void selectTime(LocalTime time) {
-        Selenide.$x(TIME_SELECTION_LOCATOR).selectOption(time.toString());
+        Selenide.$x("(//select[@id='startTime'])[1]").selectOption(time.toString());
     }
     
     public SelenideElement findCreateDayTimetableButton() {
-        return Selenide.$x(CREATE_BUTTON_LOCATOR);
+        return Selenide.$x("(//button[@id='createButton'])[1]");
     }
 }

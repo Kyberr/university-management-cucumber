@@ -9,7 +9,7 @@ import com.codeborne.selenide.SelenideElement;
 public class GroupsPage {
     
     public static final String PRESENT_GROUP_NAME = "ua-77";
-    public static final int CREATED_GROUP_ORDER = 3;
+    public static final int UPDATED_GROUP_ORDER = 3;
     
     public SelenideElement findConfirmDeletingButtonByGroupName(String name) {
         return Selenide.$x("//a[text()='" + name + 

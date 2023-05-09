@@ -71,7 +71,7 @@ Feature: Admin flow
     When the user clicks the delete course button of updated course
     Then the created course is not present on the courses list page
 
-  Scenario: The admin creates a group
+  Scenario: The admin role creates a group
     Given a user sees the group list page
     When the user clicks the create group button
     Then the user imputs a group name

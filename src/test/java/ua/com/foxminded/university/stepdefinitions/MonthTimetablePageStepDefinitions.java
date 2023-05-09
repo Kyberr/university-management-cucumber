@@ -1,5 +1,6 @@
 package ua.com.foxminded.university.stepdefinitions;
 
+
 import java.time.LocalDate;
 
 import com.codeborne.selenide.Selenide;
@@ -18,12 +19,22 @@ public class MonthTimetablePageStepDefinitions {
     private String monthTimetablePageUrl;
     
     public MonthTimetablePageStepDefinitions(PageUrlConfig config) {
-        monthTimetablePageUrl = new StringBuffer().append(config.getHostUrl())
-                                                  .append("/timetables/")
-                                                  .append(DATESTAMP)
-                                                  .append("/list")
-                                                  .append("?").toString();
-        monthTimetablePage = new MonthTimetablePage();
+        this.monthTimetablePageUrl = new StringBuffer().append(config.getHostUrl())
+                                                       .append("/timetables/")
+                                                       .append(DATESTAMP)
+                                                       .append("/list")
+                                                       .append("?").toString();
+        this.monthTimetablePage = new MonthTimetablePage();
+    }
+    
+    @Then("the user selects the programming lesson")
+    public void the_user_selects_the_programming_lesson() {
+        monthTimetablePage.selectLesson(MonthTimetablePage.PROGRAMMING_LESSON);
+    }
+    
+    @Then("the user click the expand button of any day")
+    public void the_user_click_the_expand_button_of_any_day() {
+        monthTimetablePage.findExpandButton().click();
     }
     
     @When("a user goes to a month timetable")
@@ -48,7 +59,7 @@ public class MonthTimetablePageStepDefinitions {
     
     @Then("the user selects a lesson")
     public void the_user_selects_a_lesson() {
-        monthTimetablePage.selectLesson(MonthTimetablePage.PROGRAMMING_LESSON);
+        monthTimetablePage.selectLesson(MonthTimetablePage.MATHEMATICS_LESSON);
     }
     
     @Then("the user selects a group name")

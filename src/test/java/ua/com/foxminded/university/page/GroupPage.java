@@ -7,7 +7,8 @@ import com.codeborne.selenide.SelenideElement;
 
 public class GroupPage {
     
-    public static final String UPDATED_GROUP_NAME = "lf-71";
+    public static final String PRESENT_GROUP_NAME = "ua-77";
+    public static final String UPDATED_GROUP_NAME = "km-71";
     public static final int TIME_WAIT_VISIBILITY = 30;
     public static final String CREATED_GROUP_NAME = "df-85";
     

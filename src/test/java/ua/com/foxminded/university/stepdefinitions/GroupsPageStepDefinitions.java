@@ -21,6 +21,15 @@ public class GroupsPageStepDefinitions {
         groupsPage = new GroupsPage();
     }
     
+    @When("the user clicks the delete button of a present group")
+    public void the_user_clicks_the_delete_button_of_a_present_group() {
+        groupsPage.findDeleteButtonByGroupName(GroupPage.PRESENT_GROUP_NAME).click();
+    }
+    @Then("the user clicks the confirm button of a present group")
+    public void the_user_clicks_the_confirm_button_of_a_present_group() {
+        groupsPage.findConfirmDeletingButtonByGroupName(GroupPage.PRESENT_GROUP_NAME).click();
+    }
+    
     @Then("the user goes to groups list page")
     public void the_user_goes_to_groups_list_page() {
         Selenide.webdriver().shouldHave(
@@ -66,7 +75,7 @@ public class GroupsPageStepDefinitions {
     
     @Then("the user clicks the confirm button of created group")
     public void the_user_clicks_the_confirm_button_of_created_group() {
-        groupsPage.findConfirmDeletingButtonByOrder(GroupsPage.CREATED_GROUP_ORDER).click();
+        groupsPage.findConfirmDeletingButtonByOrder(GroupsPage.UPDATED_GROUP_ORDER).click();
     }
     
     @When("the user clicks the delete button of created group")
