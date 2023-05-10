@@ -1,8 +1,9 @@
 package ua.com.foxminded.university.page;
 
+import static com.codeborne.selenide.Selenide.*;
+
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 public class GroupPage {
@@ -13,18 +14,18 @@ public class GroupPage {
     public static final String CREATED_GROUP_NAME = "df-85";
     
     public SelenideElement findGroupName(String text) {
-        return Selenide.$x("//div[text()='" + text + "']");
+        return $x("//div[text()='" + text + "']");
     }
     
     public SelenideElement findConfirmButton() {
-        return Selenide.$(By.id("confirmButton"));
+        return $(By.id("confirmButton"));
     }
     
     public SelenideElement findNameUpdateButton() {
-        return Selenide.$(By.id("nameUpdateButton"));
+        return $(By.id("nameUpdateButton"));
     }
     
     public SelenideElement findGroupNameUpdateField() {
-        return Selenide.$(By.id("groupUpdateNameField"));
+        return $(By.id("groupUpdateNameField"));
     }
 }

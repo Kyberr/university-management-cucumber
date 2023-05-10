@@ -1,33 +1,30 @@
 package ua.com.foxminded.university.page;
 
+import static com.codeborne.selenide.Selenide.*;
+
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 public class HomePage {
     
-    public static final By ADMIN_PANEL_BUTTON = By.id("adminPanelButton");
-    public static final By COURSES_BUTTON = By.id("coursesButton");
-    public static final By TIMETABLES_BUTTON = By.id("timetablesButton");
-    
     public SelenideElement findTimetablesButton() {
-        return Selenide.$(TIMETABLES_BUTTON);
+        return $(By.id("timetablesButton"));
     }
     
     public SelenideElement findGroupsButton() {
-        return Selenide.$(By.id("groupsButton"));
+        return $(By.id("groupsButton"));
     }
 
     public SelenideElement findCoursesButton() {
-        return Selenide.$(COURSES_BUTTON);
+        return $(By.id("coursesButton"));
     }
     
     public SelenideElement findAdminPanelButton() {
-        return Selenide.$(ADMIN_PANEL_BUTTON);
+        return $(By.id("adminPanelButton"));
     }
     
     public SelenideElement findSignInButton() {
-        return Selenide.$(By.id("signInButton"));
+        return $(By.id("signInButton"));
     }
 }

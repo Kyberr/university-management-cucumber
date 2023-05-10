@@ -1,8 +1,9 @@
 package ua.com.foxminded.university.page;
 
+import static com.codeborne.selenide.Selenide.*;
+
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 public class LoginPage {
@@ -13,16 +14,12 @@ public class LoginPage {
     public static final String ADMIN_LOGIN = "a";
     public static final String PASSWORD = "a";
     
-    public static final By LOGIN_BUTTON_LOCATOR = By.id("signInButton");
-    public static final By PASSWORD_LOCATOR = By.name("password");
-    public static final By USERNAME_LOCATOR = By.name("username");
-    
     public SelenideElement findSignInButton() {
-        return Selenide.$(LOGIN_BUTTON_LOCATOR);
+        return $(By.id("signInButton"));
     }
     
     public void enterCredentials(String username, String password) {
-        Selenide.$(USERNAME_LOCATOR).setValue(username);
-        Selenide.$(PASSWORD_LOCATOR).setValue(password);
+        $(By.name("username")).setValue(username);
+        $(By.name("password")).setValue(password);
     }
 }

@@ -1,9 +1,9 @@
 package ua.com.foxminded.university.page;
 
+import static com.codeborne.selenide.Selenide.*;
 
 import org.openqa.selenium.By;
 
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 
 public class GroupsPage {
@@ -12,33 +12,33 @@ public class GroupsPage {
     public static final int UPDATED_GROUP_ORDER = 3;
     
     public SelenideElement findConfirmDeletingButtonByGroupName(String name) {
-        return Selenide.$x("//a[text()='" + name + 
+        return $x("//a[text()='" + name + 
                 "']//ancestor::tr//child::button[@id='confirmDeleting']");
     }
     
     public SelenideElement findLinkText(String text) {
-        return Selenide.$(By.linkText(text));
+        return $(By.linkText(text));
     }
     
     public SelenideElement findSaveChangesButton() {
-        return Selenide.$(By.id("createSubmitButton"));
+        return $(By.id("createSubmitButton"));
     }
     
     public SelenideElement findGroupNameInputField() {
-        return Selenide.$(By.id("createCourseNameInput"));
+        return $(By.id("createCourseNameInput"));
     }
     
     public SelenideElement findCreateButton() { 
-        return Selenide.$(By.id("createButton"));
+        return $(By.id("createButton"));
     }
     
     public SelenideElement findDeleteButtonByGroupName(String name) {
-        return Selenide.$x("//a[text()='" + name + 
-                "']//ancestor::tr//*[@id='deleteButton']");
+        return $x("//a[text()='" + name + 
+                  "']//ancestor::tr//*[@id='deleteButton']");
     }
     
     public SelenideElement findConfirmDeletingButtonByOrder(int order) {
-        return Selenide.$x("//tbody//child::tr[" + order + 
-                "]//*[@id='confirmDeleting']");
+        return $x("//tbody//child::tr[" + order + 
+                  "]//*[@id='confirmDeleting']");
     }
 }
