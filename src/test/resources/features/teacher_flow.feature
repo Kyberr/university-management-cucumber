@@ -59,5 +59,5 @@ Feature: Teacher flow
   Scenario: The teacher role has no access to delete a course
     Given a user sees the courses list page
     When the user clicks the delete course button of a present course
-    Then the created course is not present on the courses list page   
+    Then the user request is denied   
     

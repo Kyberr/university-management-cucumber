@@ -9,6 +9,7 @@ Feature: The Staff flow
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
   
+  @staffCreatesGroup
   Scenario: The staff role creates a group
     Given a user sees the group list page
     When the user clicks the create group button
@@ -20,11 +21,11 @@ Feature: The Staff flow
     Given a user sees the group list page
     When the user clicks on the group name link
     Then the user goes to a group page
-  
+    
   @staffUpdatesGroup   
   Scenario: The staff role updates a group information
     Given a user sees the group list page
-    When the user clicks on text link of the created group
+    When the user clicks on name text link of a group
     Then the user inputs a group name to the group name field
     Then the user clicks on the update group button
     * the user clicks the confirm button
@@ -86,6 +87,7 @@ Feature: The Staff flow
     * the user clicks the deassign confirm button
     * the couse page has no the deassigned teacher
 	
+	@staffCreatesCourse
   Scenario: The staff role creates a course
     Given a user sees the courses list page
     When the user clicks the create button
@@ -99,10 +101,10 @@ Feature: The Staff flow
     When the user clicks a present course name link
     Then the user goes to a course page
 	
-	@courseUpdatingByStaff
+	@staffUpdatesCourse
   Scenario: The staff role updates a course
     Given a user sees the courses list page
-    When the user clicks the created course name link
+    When the user clicks a course name link
     Then the user goes to a course page
     * the user enters a new course name into the input field
     * the user enters new course description into the input field

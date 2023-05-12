@@ -1,6 +1,7 @@
 package ua.com.foxminded.university.stepdefinitions;
 
-import com.codeborne.selenide.Condition;
+import static com.codeborne.selenide.Condition.*;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 
@@ -35,24 +36,62 @@ public class Hooks {
         WebDriverRunner.clearBrowserCache();
     }
     
-    @After("@staffUpdatesGroup")
-    public void deleteCreatedByStaffGroup() {
+    @Before("@adminDeletesCourse or @adminUpdatesCourse or @staffUpdatesCourse")
+    public void createCourse() {
         loginWithAdminRole();
-        homePage.findGroupsButton().click();
-        groupsPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();
-        groupsPage.findConfirmDeletingButtonByOrder(GroupsPage.UPDATED_GROUP_ORDER).click();
-        groupsPage.findLinkText(GroupPage.UPDATED_GROUP_NAME).shouldNot(Condition.exist);
+        homePage.findCoursesButton().click();
+        coursesPage.findCreateButton().click();
+        coursesPage.findCourseNameInputField().setValue(CoursePage.COURSE_NAME);
+        coursesPage.findSaveChangesButtonOfCreatePanel().click();
+        coursesPage.findCouseLink(CoursePage.COURSE_NAME).should(exist);
     }
     
-    @After("@courseUpdatingByStaff")
-    public void deleteUpdatedByStaffCourse() {
+    @After("@staffUpdatesCourse or @adminUpdatesCourse")
+    public void deleteUpdatedCourse() {
         loginWithAdminRole();
         homePage.findCoursesButton().click();
         coursesPage.findDeleteCourseButton(CoursePage.UPDATED_COURSE_NAME).click();
         coursesPage.findConfirmDeletingButton(CoursePage.UPDATED_COURSE_NAME).click();
-        coursesPage.findCouseLink(CoursePage.UPDATED_COURSE_NAME).shouldNot(Condition.exist);
+        coursesPage.findCouseLink(CoursePage.UPDATED_COURSE_NAME).shouldNot(exist);
     }
     
+    @After("@adminCreatesCourse or @staffCreatesCourse") 
+    public void deleteCreatedCourse() {
+        loginWithAdminRole();
+        homePage.findCoursesButton().click();
+        coursesPage.findDeleteCourseButton(CoursePage.COURSE_NAME).click();
+        coursesPage.findConfirmDeletingButton(CoursePage.COURSE_NAME).click();
+        coursesPage.findCouseLink(CoursePage.COURSE_NAME).shouldNot(exist);
+    }
+    
+    @Before("@staffUpdatesGroup or @adminUpdatesGroup or @adminDeletsGroup")
+    public void createGroup() {
+        loginWithAdminRole();
+        homePage.findGroupsButton().click();
+        groupsPage.findCreateButton().click();
+        groupsPage.findGroupNameInputField().setValue(GroupPage.GROUP_NAME);
+        groupsPage.findSaveChangesButton().click();
+        groupsPage.findLinkText(GroupPage.GROUP_NAME).should(exist);
+    }
+    
+    @After("@staffUpdatesGroup or @adminUpdatesGroup")
+    public void deleteUpdatedGroup() {
+        loginWithAdminRole();
+        homePage.findGroupsButton().click();
+        groupsPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();
+        groupsPage.findConfirmDeletingButtonByOrder(GroupPage.UPDATED_GROUP_NAME).click();
+        groupsPage.findLinkText(GroupPage.UPDATED_GROUP_NAME).shouldNot(exist);
+    }
+    
+    @After("@adminCreatesGroup or @staffCreatesGroup")
+    public void deleteCreatedGroup() {
+        loginWithAdminRole();
+        Selenide.open(config.getGroupsPageUrl());
+        groupsPage.findDeleteButtonByGroupName(GroupPage.GROUP_NAME).click();
+        groupsPage.findConfirmDeletingButtonByOrder(GroupPage.GROUP_NAME).click();
+        groupsPage.findLinkText(GroupPage.GROUP_NAME).shouldNot(exist);
+    }
+
     private void loginWithAdminRole() {
         Selenide.open(config.getLoginPageUrl());
         loginPage.enterCredentials(LoginPage.ADMIN_LOGIN, LoginPage.PASSWORD);

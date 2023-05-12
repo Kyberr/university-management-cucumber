@@ -41,7 +41,8 @@ Feature: Admin flow
     * the user enters a password and confirm password
     * the user click the athorize button in the authorize menu
     * the user sees updated data of the user on the admin panel
-
+  
+  @adminCreatesCourse
   Scenario: The admin role creates a course
     Given a user sees the courses button on the home page
     When the user clicks the courses button
@@ -56,21 +57,24 @@ Feature: Admin flow
     Given a user sees the courses list page
     When the user clicks a present course name link
     Then the user goes to a course page
-
+  
+  @adminUpdatesCourse
   Scenario: The admin role updates a course
     Given a user sees the courses list page
-    When the user clicks the created course name link
+    When the user clicks a course name link
     Then the user goes to a course page
     * the user enters a new course name into the input field
     * the user enters new course description into the input field
     * the user clicks the save changes button on the course page
     * the user sees updated couse data on the course page
-
+  
+  @adminDeletesCourse
   Scenario: The admin role deletes a course
     Given a user sees the courses list page
-    When the user clicks the delete course button of updated course
-    Then the created course is not present on the courses list page
-
+    When the user clicks the delete course button of a course
+    Then the course is not present on the courses list page
+  
+  @adminCreatesGroup
   Scenario: The admin role creates a group
     Given a user sees the group list page
     When the user clicks the create group button
@@ -82,17 +86,19 @@ Feature: Admin flow
     Given a user sees the group list page
     When the user clicks on the group name link
     Then the user goes to a group page
-
+  
+  @adminUpdatesGroup
   Scenario: The admin role updates a group information
     Given a user sees the group list page
-    When the user clicks on text link of the created group
+    When the user clicks on name text link of a group
     Then the user inputs a group name to the group name field
     Then the user clicks on the update group button
     * the user clicks the confirm button
     * the user sees the updated group name in the group page
 	
+	@adminDeletsGroup
   Scenario: The admin deletes a group information
   	Given a user sees the group list page
-  	When the user clicks the delete button of created group
-  	Then the user clicks the confirm button of created group
+  	When the user clicks the delete button of a group
+  	Then the user clicks the confirm button of the group
   	* the deleted group is not present

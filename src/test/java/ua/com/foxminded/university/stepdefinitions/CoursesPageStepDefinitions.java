@@ -35,11 +35,11 @@ public class CoursesPageStepDefinitions {
         coursesPage.findCouseLink(CoursesPage.PRESENT_COURSE_NAME).click();
     }
     
-    @When("the user clicks the delete course button of updated course")
-    public void the_user_clicks_the_delete_course_button_of_updated_course() {
-        coursesPage.findDeleteCourseButton(CoursePage.UPDATED_COURSE_NAME)
+    @When("the user clicks the delete course button of a course")
+    public void the_user_clicks_the_delete_course_button_of_a_course() {
+        coursesPage.findDeleteCourseButton(CoursePage.COURSE_NAME)
                    .click();
-        coursesPage.findConfirmDeletingButton(CoursePage.UPDATED_COURSE_NAME)
+        coursesPage.findConfirmDeletingButton(CoursePage.COURSE_NAME)
                    .click();
     }
     
@@ -86,13 +86,13 @@ public class CoursesPageStepDefinitions {
         coursesPage.findCouseLink(CoursePage.COURSE_NAME).should(exist);
     }
     
-    @Then("the created course is not present on the courses list page")
-    public void the_created_course_is_not_present_on_the_courses_list_page() {
+    @Then("the course is not present on the courses list page")
+    public void the_course_is_not_present_on_the_courses_list_page() {
         coursesPage.findCouseLink(CoursePage.COURSE_NAME).shouldNot(exist);
     }
     
-    @When("the user clicks the created course name link")
-    public void the_user_clicks_the_created_course_name_link() {
+    @When("the user clicks a course name link")
+    public void the_user_clicks_a_course_name_link() {
         coursesPage.findCouseLink(CoursePage.COURSE_NAME).click();
     }
 }

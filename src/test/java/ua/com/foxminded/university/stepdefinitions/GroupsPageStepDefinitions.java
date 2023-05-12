@@ -1,5 +1,7 @@
 package ua.com.foxminded.university.stepdefinitions;
 
+import static com.codeborne.selenide.Condition.exist;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverConditions;
@@ -49,7 +51,7 @@ public class GroupsPageStepDefinitions {
     
     @Then("the deleted group is not present")
     public void the_deleted_group_is_not_present() {
-        groupsPage.findLinkText(GroupPage.UPDATED_GROUP_NAME).shouldNot(Condition.exist);
+        groupsPage.findLinkText(GroupPage.GROUP_NAME).shouldNot(exist);
     }
     
     @Then("the user clicks on the group name link")
@@ -59,13 +61,12 @@ public class GroupsPageStepDefinitions {
 
     @Then("the user sees the created course on the group list page")
     public void the_user_sees_the_created_course_on_the_group_list_page() {
-        groupsPage.findLinkText(GroupPage.CREATED_GROUP_NAME)
-                 .should(Condition.exist);
+        groupsPage.findLinkText(GroupPage.GROUP_NAME).should(exist);
     }
     
-    @When("the user clicks on text link of the created group")
-    public void the_user_clicks_on_text_link_of_the_created_group() {
-        groupsPage.findLinkText(GroupPage.CREATED_GROUP_NAME).click();
+    @When("the user clicks on name text link of a group")
+    public void the_user_clicks_on_name_text_link_of_a_group() {
+        groupsPage.findLinkText(GroupPage.GROUP_NAME).click();
     }
     
     @When("the user clicks the create group button")
@@ -73,14 +74,14 @@ public class GroupsPageStepDefinitions {
         groupsPage.findCreateButton().click();
     }
     
-    @Then("the user clicks the confirm button of created group")
-    public void the_user_clicks_the_confirm_button_of_created_group() {
-        groupsPage.findConfirmDeletingButtonByOrder(GroupsPage.UPDATED_GROUP_ORDER).click();
+    @Then("the user clicks the confirm button of the group")
+    public void the_user_clicks_the_confirm_button_of_the_group() {
+        groupsPage.findConfirmDeletingButtonByOrder(GroupPage.GROUP_NAME).click();
     }
     
-    @When("the user clicks the delete button of created group")
-    public void the_user_clicks_the_delete_button_of_created_group() {
-        groupsPage.findDeleteButtonByGroupName(GroupPage.UPDATED_GROUP_NAME).click();;
+    @When("the user clicks the delete button of a group")
+    public void the_user_clicks_the_delete_button_of_a_group() {
+        groupsPage.findDeleteButtonByGroupName(GroupPage.GROUP_NAME).click();
     }
     
     @Then("press the save changes button")
@@ -91,7 +92,7 @@ public class GroupsPageStepDefinitions {
     @Then("the user imputs a group name")
     public void the_user_imputs_a_group_name() {
         groupsPage.findGroupNameInputField()
-                  .setValue(GroupPage.CREATED_GROUP_NAME);
+                  .setValue(GroupPage.GROUP_NAME);
     }
 
     @Given("a user sees the group list page")

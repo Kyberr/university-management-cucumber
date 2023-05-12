@@ -9,7 +9,6 @@ import com.codeborne.selenide.SelenideElement;
 public class GroupsPage {
     
     public static final String PRESENT_GROUP_NAME = "ua-77";
-    public static final int UPDATED_GROUP_ORDER = 3;
     
     public SelenideElement findConfirmDeletingButtonByGroupName(String name) {
         return $x("//a[text()='" + name + 
@@ -37,8 +36,8 @@ public class GroupsPage {
                   "']//ancestor::tr//*[@id='deleteButton']");
     }
     
-    public SelenideElement findConfirmDeletingButtonByOrder(int order) {
-        return $x("//tbody//child::tr[" + order + 
-                  "]//*[@id='confirmDeleting']");
+    public SelenideElement findConfirmDeletingButtonByOrder(String name) {
+        return $x("//a[text()='" + name + 
+                  "']//ancestor::tr//descendant::button[@id='confirmDeleting']");
     }
 }
