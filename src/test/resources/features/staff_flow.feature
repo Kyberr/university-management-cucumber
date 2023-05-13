@@ -1,13 +1,34 @@
+@test
 Feature: The Staff flow
   A user should be able to create/read/update all courses
   A user should be able to assign/deassign teacher to a course
   A user should be able to assign/deassign groups to a course
   A user should be able to Create/Read/Update group information
+  A user can assign/deassign Students to Group
+  A user should be able to list all students in a group (read access)
 
   Background: A user loged in with staff role
     Given a user enters staff credentials on the login page
     When the user clicks the SignIn button on the login page
     Then the user goes to the home page
+    
+  @staffDeassignsStudent  
+  Scenario: The staff role deassign student to a group
+    Given a user sees the group list page
+    When the user clicks on a present group name link
+    Then the user goes to a group page
+    * the user clicks deassign button of a student
+    * the student is absent in the students list of the group page
+  
+  @staffAssignsStudents
+  Scenario: The teacher role assign students to a group
+    Given a user sees the group list page
+    When the user clicks on a present group name link
+    Then the user goes to a group page
+    * the user click the add student button
+    * the user selects students
+    * the user clicks the save selected students button
+    * the user sees added students on the group page
   
   @staffCreatesGroup
   Scenario: The staff role creates a group
@@ -17,9 +38,9 @@ Feature: The Staff flow
     * press the save changes button
     * the user sees the created course on the group list page
   
-  Scenario: The staff role retrieves a group information
+  Scenario: The staff role receives information of a group
     Given a user sees the group list page
-    When the user clicks on the group name link
+    When the user clicks on a present group name link
     Then the user goes to a group page
     
   @staffUpdatesGroup   
@@ -88,10 +109,12 @@ Feature: The Staff flow
     * the couse page has no the deassigned teacher
 	
 	@staffCreatesCourse
-  Scenario: The staff role creates a course
-    Given a user sees the courses list page
-    When the user clicks the create button
-    Then the user enters a course name on the create course panel
+  Scenario: The admin role creates a course
+    Given a user sees the courses button on the home page
+    When the user clicks the courses button
+    Then the user goes to the courses list page
+    * the user clicks the create button
+    * the user enters a course name on the create course panel
     * the user enters a course desctiption on the create course panel
     * the user clicks the save changes button on the create course panel
     * the created course is present on the courses list page
@@ -102,7 +125,7 @@ Feature: The Staff flow
     Then the user goes to a course page
 	
 	@staffUpdatesCourse
-  Scenario: The staff role updates a course
+  Scenario: The admin role updates a course
     Given a user sees the courses list page
     When the user clicks a course name link
     Then the user goes to a course page

@@ -1,6 +1,7 @@
 package ua.com.foxminded.university.stepdefinitions;
 
 import static com.codeborne.selenide.Condition.*;
+import static ua.com.foxminded.university.page.StudentsPage.*;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
@@ -14,6 +15,7 @@ import ua.com.foxminded.university.page.GroupPage;
 import ua.com.foxminded.university.page.GroupsPage;
 import ua.com.foxminded.university.page.HomePage;
 import ua.com.foxminded.university.page.LoginPage;
+import ua.com.foxminded.university.page.StudentsPage;
 
 public class Hooks {
     
@@ -22,6 +24,7 @@ public class Hooks {
     private HomePage homePage;
     private CoursesPage coursesPage; 
     private GroupsPage groupsPage;
+    private GroupPage groupPage;
     
     public Hooks(PageUrlConfig config) {
         this.config = config;
@@ -29,11 +32,43 @@ public class Hooks {
         this.homePage = new HomePage();
         this.coursesPage = new CoursesPage();
         this.groupsPage = new GroupsPage();
+        this.groupPage = new GroupPage();
     }
     
     @Before
     public void claenUp() {
         WebDriverRunner.clearBrowserCache();
+    }
+    
+    @Before("@adminDeassignsStudent or @studentDeassignsStudent or @teacherDeassignsStudent" + 
+            " or @staffDeassignsStudent")
+    public void assignStudentToGroup() {
+        loginWithAdminRole();
+        Selenide.open(config.getGroupsPageUrl());
+        groupsPage.findLinkText(GroupPage.PRESENT_GROUP_NAME).click();
+        groupPage.findAddStudentButton().click();
+        groupPage.selectStudent(LAST_NAME_PARKER).setSelected(true);
+        groupPage.findSaveSelectedStudentsButton().click();
+        groupPage.findDeassignButtonByStudentLastName(StudentsPage.LAST_NAME_PARKER)
+                 .should(exist);
+    }
+    
+    @After("@adminAssignsStudents or @staffAssignsStudents")
+    public void deassignStudentsToGroup() {
+        Selenide.open(config.getGroupsPageUrl());
+        groupsPage.findLinkText(GroupPage.PRESENT_GROUP_NAME).click();
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_PARKER).click();
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_PARKER).shouldNot(exist);
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_STARK).click();
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_STARK).shouldNot(exist);
+    }
+    
+    @After("@studentDeassignsStudent or @teacherDeassignsStudent")
+    public void deassignStudentToGroup() {
+        Selenide.open(config.getGroupsPageUrl());
+        groupsPage.findLinkText(GroupPage.PRESENT_GROUP_NAME).click();
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_PARKER).click();
+        groupPage.findDeassignButtonByStudentLastName(LAST_NAME_PARKER).shouldNot(exist);
     }
     
     @Before("@adminDeletesCourse or @adminUpdatesCourse or @staffUpdatesCourse")

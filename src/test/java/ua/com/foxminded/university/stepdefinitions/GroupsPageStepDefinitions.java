@@ -2,7 +2,6 @@ package ua.com.foxminded.university.stepdefinitions;
 
 import static com.codeborne.selenide.Condition.exist;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverConditions;
 
@@ -54,8 +53,8 @@ public class GroupsPageStepDefinitions {
         groupsPage.findLinkText(GroupPage.GROUP_NAME).shouldNot(exist);
     }
     
-    @Then("the user clicks on the group name link")
-    public void the_user_clicks_on_the_group_name_link() {
+    @Then("the user clicks on a present group name link")
+    public void the_user_clicks_on_a_present_group_name_link() {
         groupsPage.findLinkText(GroupsPage.PRESENT_GROUP_NAME).click();
     }
 

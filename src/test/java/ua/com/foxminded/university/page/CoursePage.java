@@ -10,7 +10,7 @@ public class CoursePage {
     
     public static final String UPDATED_COURSE_DESCRIPTION = "new course description";
     public static final String UPDATED_COURSE_NAME = "Computer science";
-    public static final String COURSE_NAME = "Data structures"; 
+    public static final String COURSE_NAME = "Data structure"; 
     
     public SelenideElement findAssignButton() {
         return $(By.id("assignButton"));
